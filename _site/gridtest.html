@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>gridtest</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,7001,900,900i">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="-css/debug.css">
+	<style>
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.title {
+	grid-column: 1 / 3;
+}
+
+.grid div:nth-child(even) {
+	background-color: red;
+}
+
+.grid div:nth-child(odd) {
+	background-color: green;
+}
+
+	</style>
+</head>
+<body>
+
+	<div class="grid">
+		<div class="title">Title</div>
+		<div class="header">Header</div>
+		<div class="sidebar">Sidebar</div>
+		<div class="content">Content</div>
+		<div class="footer">Footer</div>
+	</div>
+
+
+</body>
+</html>

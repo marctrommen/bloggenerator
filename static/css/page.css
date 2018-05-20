@@ -1,0 +1,87 @@
+/* mobile first */
+:root { font: 18px/1.2 "Roboto", sans-serif; } /* or html */
+
+grid {
+	display: grid;
+	grid-template-columns: 1fr 2% 96% 2% 1fr;
+	grid-template-rows: 2rem 1fr 1fr 1fr;
+	grid-template-areas:
+	". . navigation . ."
+	". . header . ."
+	". . content . ."
+	". . footer . ."
+}
+
+/* Desktop */
+@media (min-width: 800px) {
+	grid {
+		grid-template-columns: 1fr 16px 768px 16px 1fr;
+		/* proportions of column widths must meet mobile preferences */
+		/* 16px + 768px + 16px = 800px */
+		/* where 16px = 2% of 800px and 768px = 96% of 800px */
+		grid-template-rows: 1rem 1fr 1fr 1fr;
+		grid-template-areas:
+		". . navigation . ."
+		". . header . ."
+		". . content . ."
+		". . footer . ."
+	}
+}
+
+navigation {
+	grid-area: navigation;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	font: 500 1.0rem/1.5 "Roboto"; 
+}
+
+.col-1 {
+	grid-column: 1 / 2;
+}
+
+.col-2 {
+	grid-column: 2 / 3;
+}
+
+.col-3 {
+	grid-column: 3 / 4;
+}
+
+.col-4 {
+	grid-column: 4 / 5;
+}
+
+.col-5 {
+	grid-column: 5 / 6;
+}
+
+.nav-button {
+	background: #666;
+	color: #fff;
+	text-decoration: none;
+	border: 5px solid #fff;
+	text-align: center;
+}
+
+header {
+	grid-area: header;
+	padding: 1rem 0;
+}
+
+content {
+	grid-area: content;
+}
+
+h1 { font: 700 2.0rem/1.2 "Roboto"; color: #333; }
+
+footer {
+	grid-area: footer;
+	padding: 2rem 0 0;
+	height: 40px;
+}
+
+footer p {
+	text-align: center;
+}
+
+

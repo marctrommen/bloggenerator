@@ -95,6 +95,10 @@ Links on CSS
 *   [Grid CSS Responsive Website Layout - "Mobile First" Design](https://www.youtube.com/watch?v=M3qBpPw77qo)
 *   [Build a Responsive Grid CSS Website Layout From Scratch](https://www.youtube.com/watch?v=moBhzSC455o)
 *   [HTML5 and CSS3 Responsive design with media queries](https://www.youtube.com/watch?v=fA1NW-T1QXc)
+*   [Course: Build A Blog From Scratch with CSS3 - 1](https://medium.freecodecamp.org/how-to-design-and-develop-a-beautiful-blog-from-scratch-a0cd1af46845)
+*   [Course: Build A Blog From Scratch with CSS3 - 2](https://scrimba.com/g/gbuildablog)
+*   [Free Images](https://www.pexels.com/)
+*   [Free Icons](https://fontawesome.com/)
 
 
 Links on Python

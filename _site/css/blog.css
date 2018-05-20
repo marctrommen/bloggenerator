@@ -1,0 +1,6 @@
+blogpost h2   { font: 400 1.5rem/1.2 "Roboto"; color: #333; }
+blogpost h3   { font: 700 1.0rem/1.2 "Roboto"; color: #333; }
+blogpost time { font: 700 1.0rem/1.2 "Roboto"; color: #333; }
+blogpost pre  { font: 400 0.8rem/1.0 "Roboto"; }
+blogpost p    { font: 400 1.1rem/1.5 "Roboto"; color: #333; padding: 0 0; }
+blogpost * a  { font: 500 1.1rem/1.5 "Roboto"; color: #11d; text-decoration: none;}
