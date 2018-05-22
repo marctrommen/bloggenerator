@@ -1,0 +1,65 @@
+<!-- blogtitle: HighlightJS -->
+<!-- blogcreated: 07-05-2018-13:00:00 -->
+<!-- blogchanged: 07-05-2018-13:00:00 -->
+<!-- blogtags: code pyexcel python -->
+
+<p>
+Proin quam urna, <a href="#">das ist ein Link</a> pulvinar id ipsum ac,
+non justo lectus. Duis egestas arcu libero, quis laoreet dolor volutpat
+ut. Donec facilisis orci sit amet sem blandit elementum. Vestibulum
+suscipit consectetur diam, ac posuere metus condimentum in. Integer
+vehicula vitae enim id gravida. Vestibulum ut eros vitae risus porttitor
+porta in eget felis. Nulla lorem erat, mattis eget lacus eget, interdum
+aliquet lectus. Fusce non felis diam. Mauris sagittis porttitor est et
+vestibulum. Duis faucibus commodo est. Maecenas elit purus, auctor a
+consectetur eu, suscipit nec metus. Nam gravida id massa quis faucibus.
+Sed non consectetur eros. Nullam iaculis sit amet ex eget ultrices. Sed
+ligula arcu, vehicula vel ipsum nec, ultrices pulvinar ante.
+</p>
+
+<pre><code class="python" data-noescape>#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# Name: pyexcel_simple.py
+# Zweck: Excel 2010 Dokument bearbeiten mit openpyxl 2.4.8
+
+import openpyxl as pyxl
+
+#FILEPATH = "C:\\Users\\peterPan\\Desktop\\Python\\"
+FILEPATH = "./"
+WORKBOOKNAME = "Einkaufsliste.xlsx"
+WORKSHEET = "Einkaufsliste"
+
+wb = pyxl.load_workbook(FILEPATH + WORKBOOKNAME)
+
+sheet = wb.get_sheet_by_name(WORKSHEET)
+# alternativ: wb.get_active_sheet()
+
+# index in Excel beginnt bei 1
+ROW_FROM = 2
+COLUMN_FROM = 1
+
+row = ROW_FROM
+
+# 1. Datensatz
+sheet.cell(column=COLUMN_FROM, row=row, value=row-1) # LFD-NR
+sheet.cell(column=COLUMN_FROM+1, row=row, value=1) # Menge
+sheet.cell(column=COLUMN_FROM+2, row=row, value="Zucker") # Bezeichnung
+sheet.cell(column=COLUMN_FROM+3, row=row, value=0.89) # Preis pro Menge
+
+# 2. Datensatz
+row += 1 # Zeilennummer um 1 erhöhen
+sheet.cell(column=COLUMN_FROM, row=row, value=row-1) # LFD-NR
+sheet.cell(column=COLUMN_FROM+1, row=row, value=3) # Menge
+sheet.cell(column=COLUMN_FROM+2, row=row, value="Breze") # Bezeichnung
+sheet.cell(column=COLUMN_FROM+3, row=row, value=0.55) # Preis pro Menge
+
+# 3. Datensatz
+row += 1 # Zeilennummer um 1 erhöhen
+sheet.cell(column=COLUMN_FROM, row=row, value=row-1) # LFD-NR
+sheet.cell(column=COLUMN_FROM+1, row=row, value=2) # Menge
+sheet.cell(column=COLUMN_FROM+2, row=row, value="Waschpulver") # Bezeichnung
+sheet.cell(column=COLUMN_FROM+3, row=row, value=8.99) # Preis pro Menge
+
+# Datei speichern; HIER: anderer Dateiname, um Original nicht zu verändern
+wb.save(FILEPATH + "a_" + WORKBOOKNAME)</code></pre>

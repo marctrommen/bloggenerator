@@ -4,12 +4,12 @@
 grid {
 	display: grid;
 	grid-template-columns: 1fr 2% 96% 2% 1fr;
-	grid-template-rows: 2rem 1fr 1fr 1fr;
+	grid-template-rows: 2rem auto auto auto;
 	grid-template-areas:
 	". . navigation . ."
 	". . header . ."
 	". . content . ."
-	". . footer . ."
+	". . footer . .";
 }
 
 /* Desktop */
@@ -19,13 +19,18 @@ grid {
 		/* proportions of column widths must meet mobile preferences */
 		/* 16px + 768px + 16px = 800px */
 		/* where 16px = 2% of 800px and 768px = 96% of 800px */
-		grid-template-rows: 1rem 1fr 1fr 1fr;
+		grid-template-rows: 1rem auto auto auto;
 		grid-template-areas:
 		". . navigation . ."
 		". . header . ."
 		". . content . ."
-		". . footer . ."
+		". . footer . .";
 	}
+}
+
+p {
+	margin: unset;
+	padding: unset;
 }
 
 navigation {
@@ -66,13 +71,20 @@ navigation {
 header {
 	grid-area: header;
 	padding: 1rem 0;
+	margin: unset;
 }
 
 content {
 	grid-area: content;
+	padding: 0 0;
+	margin: unset;
 }
 
-h1 { font: 700 2.0rem/1.2 "Roboto"; color: #333; }
+h1 {
+	font: 700 2.0rem/1.2 "Roboto";
+	color: #333;
+	padding: 0 0;
+}
 
 footer {
 	grid-area: footer;
@@ -84,4 +96,7 @@ footer p {
 	text-align: center;
 }
 
-
+footer p a {
+	color: #11d;
+	text-decoration: none;
+}

@@ -1,0 +1,92 @@
+blogpost {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto auto auto auto auto;
+	grid-template-areas:
+	"blogtitle"
+	"created"
+	"blogcontent"
+	"tags"
+	"lastchange";
+}
+
+blogpost blogtitle {
+	grid-area: blogtitle;
+	font: 400 1.5rem/1.2 "Roboto"; 
+	color: #333;
+}
+
+blogpost created {
+	grid-area: created;
+	font: 400 1.0rem/1.2 "Roboto";
+	color: #333;
+	font-style: italic;
+	padding: 1rem 0 0;
+}
+
+blogpost created time {
+}
+
+blogpost blogcontent {
+	grid-area: blogcontent;
+	display: grid;
+
+}
+
+blogpost tags {
+	grid-area: tags;
+	font: 400 1.1rem/1.5 "Roboto";
+	color: #333;
+	font-style: italic;
+	padding: 1rem 0;
+}
+
+blogpost tags a {
+	text-decoration: none;
+}
+
+blogpost lastchange {
+	grid-area: lastchange;
+	font: 400 0.8rem/1.0 "Roboto";
+	color: #333;
+	font-style: italic;
+}
+
+blogpost lastchange time {
+}
+
+blogcontent h2 {
+	font: 400 1.2rem/1.2 "Roboto";
+	color: #333;
+}
+
+blogcontent h3 {
+	font: 700 1.0rem/1.2 "Roboto";
+	color: #333;
+}
+
+blogcontent pre {
+	font: 400 0.8rem/1.0 "Roboto";
+}
+
+blogcontent p { 
+	font: 400 1.1rem/1.5 "Roboto";
+	color: #333;
+	padding: 1rem 0 0;
+}
+
+blogcontent * a {
+	font: 500 1.1rem/1.5 "Roboto";
+	color: #11d;
+	text-decoration: none;
+}
+
+blogcontent * ul {
+	font: 400 1.1rem/1.5 "Roboto";
+	color: #333;
+}
+
+blogcontent * li {
+	font: 400 1.1rem/1.5 "Roboto";
+	color: #333;
+}
