@@ -4,6 +4,16 @@ Take full control of your static website/blog generation by writing your
 own simple, lightweight, and magic-free static site generator in
 Python.
 
+[![MIT License][LICENSE-BADGE]](LICENSE)
+![Python 3.x][PYTHON-BADGE]
+![HTML 5][HTML5-BADGE]
+![CSS 3][CSS3-BADGE]
+
+[LICENSE-BADGE]: https://img.shields.io/badge/license-MIT-blue.svg
+[PYTHON-BADGE]: https://img.shields.io/badge/Python-3.x-blue.svg
+[HTML5-BADGE]: https://img.shields.io/badge/HTML-5-blue.svg
+[CSS3-BADGE]: https://img.shields.io/badge/CSS-3-blue.svg
+
 
 Content
 -------
