@@ -2,55 +2,283 @@
 <diagram program="umlet" version="14.2">
   <zoom_level>10</zoom_level>
   <element>
-    <id>UMLNote</id>
+    <id>Relation</id>
     <coordinates>
-      <x>20</x>
-      <y>20</y>
-      <w>120</w>
-      <h>140</h>
+      <x>400</x>
+      <y>140</y>
+      <w>220</w>
+      <h>50</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;html-template&gt;&gt;
-page
-bg=light_gray</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..1
+content</panel_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>100</y>
+      <w>410</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;template&gt;&gt;
+BlogPost
+--
+relatedTemplateFileName: String
+blogId: "YYYYMMDD_hh"
+blogTitle: String
+createdDatetime: "YYYYMMDD hh:mm:ss"
+createdHumanReadable: "DD.MM.YYYY, hh:mm"
+lastChangedDatetime: "YYYYMMDD hh:mm:ss"
+lastChangedHumanReadable: "DD.MM.YYYY, hh:mm"
+taglist: List of String</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLNote</id>
+    <id>UMLClass</id>
     <coordinates>
-      <x>290</x>
-      <y>20</y>
-      <w>140</w>
-      <h>140</h>
+      <x>0</x>
+      <y>100</y>
+      <w>410</w>
+      <h>170</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;html-template&gt;&gt;
-blogpost
-bg=light_gray</panel_attributes>
+    <panel_attributes>BlogpostPage
+--
+relatedTemplateFileName: String
+title: String
+header: String
+lastGeneratedDatetime: "YYYYMMDD hh:mm:ss"
+lastGeneratedHumanReadable: "DD.MM.YYYY, hh:mm"
+buildTargetFilename: String
+buildTargetPath: String
+webLinkPath: String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>330</y>
+      <w>410</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>TaglistPage
+--
+relatedTemplateFileName: String
+title: String
+header: String
+lastGeneratedDatetime: "YYYYMMDD hh:mm:ss"
+lastGeneratedHumanReadable: "DD.MM.YYYY, hh:mm"
+buildTargetFilename: String
+buildTargetPath: String
+webLinkPath: String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>330</y>
+      <w>410</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;template&gt;&gt;
+OneTag
+--
+relatedTemplateFileName: String
+tagname: String</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>130</x>
-      <y>80</y>
-      <w>180</w>
-      <h>40</h>
+      <x>400</x>
+      <y>370</y>
+      <w>220</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
-m2=0..1</panel_attributes>
-    <additional_attributes>10.0;10.0;160.0;10.0</additional_attributes>
+m2=0..*
+taglist</panel_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>530</y>
+      <w>410</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;template&gt;&gt;
+BlogEntry
+--
+relatedTemplateFileName: String
+blogTitle: String
+createdDatetime: "YYYYMMDD hh:mm:ss"
+createdHumanReadable: "DD.MM.YYYY, hh:mm"
+buildSourceFilename: String
+buildSourcePath: String
+buildTargetPath: String</panel_attributes>
+    <additional_attributes/>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>580</x>
-      <y>20</y>
-      <w>140</w>
-      <h>140</h>
+      <x>10</x>
+      <y>0</y>
+      <w>220</w>
+      <h>60</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;html-template&gt;&gt;
-blogpost
-bg=light_gray</panel_attributes>
+    <panel_attributes>Note..
+bg=yellow
+Target JSON Data Structure</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>0</x>
+      <y>730</y>
+      <w>220</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>Note..
+bg=yellow
+Source JSON Data Structure</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>810</y>
+      <w>410</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;template&gt;&gt;
+BlogGenerator
+--
+title: String
+header: String
+lastGeneratedDatetime: "YYYYMMDD hh:mm:ss"
+lastGeneratedHumanReadable: "DD.MM.YYYY, hh:mm"
+staticBuildSourcePath: String
+staticBuildTargetPath: String
+templateBuildSourcePath: String
+blogEntryBuildSourcePath: String
+blogEntryBuildTargetPath: String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>530</y>
+      <w>410</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>BloglistPage
+--
+relatedTemplateFileName: String
+year: Integer
+month: Integer
+title: String
+header: String
+lastGeneratedDatetime: "YYYYMMDD hh:mm:ss"
+lastGeneratedHumanReadable: "DD.MM.YYYY, hh:mm"
+buildTargetFilename: String
+buildTargetPath: String
+webLinkPath: String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>800</y>
+      <w>410</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;template&gt;&gt;
+BlogPost
+--
+relatedTemplateFileName: String
+createdYear: Integer
+createdMonth: Integer
+createdDay: Integer
+createdHour: Integer
+blogId: "YYYYMMDD_hh"
+blogTitle: String
+createdDatetime: "YYYYMMDD hh:mm:ss"
+createdHumanReadable: "DD.MM.YYYY, hh:mm"
+lastChangedDatetime: "YYYYMMDD hh:mm:ss"
+lastChangedHumanReadable: "DD.MM.YYYY, hh:mm"
+taglist: List of String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>860</y>
+      <w>240</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1..*</panel_attributes>
+    <additional_attributes>10.0;10.0;220.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>580</y>
+      <w>230</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1..*
+blogEntryList</panel_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1210</x>
+      <y>320</y>
+      <w>410</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;template&gt;&gt;
+BlogEntry
+--
+relatedTemplateFileName: String
+blogTitle: String
+createdDatetime: "YYYYMMDD hh:mm:ss"
+createdHumanReadable: "DD.MM.YYYY, hh:mm"
+buildSourceFilename: String
+buildSourcePath: String
+buildTargetPath: String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>370</y>
+      <w>230</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1..*
+blogEntryList</panel_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
   </element>
 </diagram>
