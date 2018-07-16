@@ -1,29 +1,29 @@
 /* mobile first */
 :root { font: 18px/1.2 "Roboto", sans-serif; } /* or html */
 
-grid {
+body {
 	display: grid;
 	grid-template-columns: 1fr 2% 96% 2% 1fr;
 	grid-template-rows: 2rem auto auto auto;
 	grid-template-areas:
-	". . navigation . ."
+	". . nav . ."
 	". . header . ."
-	". . content . ."
+	". . main . ."
 	". . footer . .";
 }
 
 /* Desktop */
 @media (min-width: 800px) {
-	grid {
+	body {
 		grid-template-columns: 1fr 16px 768px 16px 1fr;
 		/* proportions of column widths must meet mobile preferences */
 		/* 16px + 768px + 16px = 800px */
 		/* where 16px = 2% of 800px and 768px = 96% of 800px */
 		grid-template-rows: 1rem auto auto auto;
 		grid-template-areas:
-		". . navigation . ."
+		". . nav . ."
 		". . header . ."
-		". . content . ."
+		". . main . ."
 		". . footer . .";
 	}
 }
@@ -33,34 +33,34 @@ p {
 	padding: unset;
 }
 
-navigation {
-	grid-area: navigation;
+nav {
+	grid-area: nav;
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	font: 500 1.0rem/1.5 "Roboto"; 
 }
 
-.col-1 {
+nav a.col-1 {
 	grid-column: 1 / 2;
 }
 
-.col-2 {
+nav a.col-2 {
 	grid-column: 2 / 3;
 }
 
-.col-3 {
+nav a.col-3 {
 	grid-column: 3 / 4;
 }
 
-.col-4 {
+nav a.col-4 {
 	grid-column: 4 / 5;
 }
 
-.col-5 {
+nav a.col-5 {
 	grid-column: 5 / 6;
 }
 
-.nav-button {
+nav a.nav-button {
 	background: #666;
 	color: #fff;
 	text-decoration: none;
@@ -74,20 +74,21 @@ header {
 	margin: unset;
 }
 
-content {
-	grid-area: content;
-	padding: 0 0;
-	margin: unset;
-}
-
-h1 {
+header h1 {
 	font: 700 2.0rem/1.2 "Roboto";
 	color: #333;
 	padding: 0 0;
 }
 
+main {
+	grid-area: main;
+	padding: 0 0;
+	margin: unset;
+}
+
 footer {
 	grid-area: footer;
+	font: 200 0.9rem/1.0 "Roboto";
 	padding: 2rem 0 0;
 	height: 40px;
 }

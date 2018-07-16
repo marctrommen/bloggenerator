@@ -9,11 +9,6 @@
 	<link rel="stylesheet" href="../css/page.css">
 	<link rel="stylesheet" href="../css/blogpost.css">
 	
-	<!-- Fontawesome Icons -->
-	<!--
-	<script type="text/javascript" src='../lib/fontawesome/-fontawesome-all.min.js'></script>
-	-->
-	
 	<!-- MathJax -->
 	<script type="text/javascript" src='../lib/mathjaxjs/MathJax.js?config=TeX-AMS_HTML-full'></script>
 	<script type="text/x-mathjax-config">MathJax.Hub.Config('TeX-AMS_HTML-full');</script>
@@ -24,33 +19,36 @@
 	<script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
-	<grid>
 	<!-- Navigation -->
-	<navigation>
+	<nav>
 		<a class="col-1 nav-button" href="#">Start</a>
 		<a class="col-2 nav-button" href="#">Blog Archiv</a>
-		<a class="col-3 nav-button" href="#">Tag Liste</a>
+		<a class="col-3 nav-button" href="#">Keywords</a>
 		<a class="col-4 nav-button" href="#">About</a>
 		<a class="col-5 nav-button" href="#">Impressum</a>
-	</navigation>
+	</nav>
 	
 	<!-- Header -->
 	<header>
 		<h1>Mein Blog</h1>
 	<header>
-	
+
 	<!-- Content -->
-	<content>
+	<main>
 	
 	<!-- blogpost -->
-	<blogpost id="20180507_13">
+	<article id="20180507_13">
+	
 		<!-- title: HighlightJS -->
+		<section class="title">
+			<h1>HighlightJS</h1>
+		</section>
 		
-		<blogtitle>HighlightJS</blogtitle>
+		<section class="created"><p>erstellt: 
+			<time datetime="07-05-2018">7. Mai 2018, 13:00</time></p>
+		</section>
 		
-		<created>erstellt: <time datetime="07-05-2018">7. Mai 2018, 13:00</time></created>
-		
-		<blogcontent>
+		<section class="content">
 			<p>
 			Proin quam urna, <a href="#">das ist ein Link</a> pulvinar id ipsum ac,
 			non justo lectus. Duis egestas arcu libero, quis laoreet dolor volutpat
@@ -110,17 +108,23 @@ sheet.cell(column=COLUMN_FROM+3, row=row, value=8.99) # Preis pro Menge
 
 # Datei speichern; HIER: anderer Dateiname, um Original nicht zu verändern
 wb.save(FILEPATH + "a_" + WORKBOOKNAME)</code></pre>
-		</blogcontent>
+		</section>
 		
-		<tags>Tags: <a href="#" target="_postsByTags">code</a>, 
-			<a href="#" target="_postsByTags">pyexcel</a>,
-			<a href="#" target="_postsByTags">python</a></tags>
+		<section class="keywords">
+			<p>Tags:
+				<a href="#" target="_postsByTags">code</a>, 
+				<a href="#" target="_postsByTags">pyexcel</a>,
+				<a href="#" target="_postsByTags">python</a></p>
+		</section>
 		
-		<lastchange>letzte Änderung: <time datetime="07-05-2018">7. Mai 2018, 13:00</time></lastchange>
-	</blogpost>
+		<section class="lastchange">
+			<p>letzte Änderung: 
+				<time datetime="07-05-2018">7. Mai 2018, 13:00</time></p>
+		</section>
+	</article>
 
-	</content>
-
+	</main>
+	
 	<!-- Footer -->	
 	<footer>
 		<p><a rel="license" 
@@ -130,14 +134,11 @@ wb.save(FILEPATH + "a_" + WORKBOOKNAME)</code></pre>
 				src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/80x15.png" /></a>
 			2018 | zuletzt generiert: <time 
 				datetime="21-05-2018">21. Mai 2018, 08:00</time></p>
-		<p>Dieses 
-			Werk ist lizenziert unter einer <a rel="license" 
+		<p>Dieses Werk ist lizenziert unter einer <a rel="license" 
 				href="http://creativecommons.org/licenses/by-nc-sa/3.0/de/">Creative 
 				Commons Namensnennung - Nicht-kommerziell - Weitergabe unter 
 				gleichen Bedingungen 3.0 Deutschland Lizenz</a>.</p>
 	</footer>
-	
-	</grid>
 	
 </body>
 </html>

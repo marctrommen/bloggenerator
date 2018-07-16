@@ -1,92 +1,84 @@
-blogpost {
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: auto auto auto auto auto;
-	grid-template-areas:
-	"blogtitle"
-	"created"
-	"blogcontent"
-	"tags"
-	"lastchange";
-}
+/*  BLOGPOST.CSS  */
 
-blogpost blogtitle {
-	grid-area: blogtitle;
-	font: 400 1.5rem/1.2 "Roboto"; 
+
+/* -- section title -- */
+article section.title h1 {
+	font: 500 1.7rem/1.2 "Roboto"; 
 	color: #333;
 }
 
-blogpost created {
-	grid-area: created;
+
+/* -- section created -- */
+article section.created {
 	font: 400 1.0rem/1.2 "Roboto";
 	color: #333;
 	font-style: italic;
 	padding: 1rem 0 0;
 }
 
-blogpost created time {
+article section.created time {
+	color: green;
 }
 
-blogpost blogcontent {
-	grid-area: blogcontent;
-	display: grid;
 
-}
-
-blogpost tags {
-	grid-area: tags;
+/* -- section keywords -- */
+article section.keywords {
 	font: 400 1.1rem/1.5 "Roboto";
 	color: #333;
 	font-style: italic;
 	padding: 1rem 0;
 }
 
-blogpost tags a {
+article section.keywords a {
 	text-decoration: none;
 }
 
-blogpost lastchange {
-	grid-area: lastchange;
+
+/* -- section lastchange -- */
+article section.lastchange {
 	font: 400 0.8rem/1.0 "Roboto";
 	color: #333;
 	font-style: italic;
 }
 
-blogpost lastchange time {
+article section.lastchange time {
+	color: green;
 }
 
-blogcontent h2 {
+
+/* -- section content -- */
+article section.content h1 {
 	font: 400 1.2rem/1.2 "Roboto";
 	color: #333;
 }
 
-blogcontent h3 {
+article section.content h2 {
 	font: 700 1.0rem/1.2 "Roboto";
 	color: #333;
 }
 
-blogcontent pre {
-	font: 400 0.8rem/1.0 "Roboto";
+article section.content pre {
+	font: 400 1.0rem/1.1 "Roboto";
 }
 
-blogcontent p { 
+article section.content p { 
 	font: 400 1.1rem/1.5 "Roboto";
 	color: #333;
 	padding: 1rem 0 0;
 }
 
-blogcontent * a {
+article section.content * a {
 	font: 500 1.1rem/1.5 "Roboto";
 	color: #11d;
 	text-decoration: none;
 }
 
-blogcontent * ul {
+article section.content * ul {
 	font: 400 1.1rem/1.5 "Roboto";
 	color: #333;
 }
 
-blogcontent * li {
+article section.content * li {
 	font: 400 1.1rem/1.5 "Roboto";
 	color: #333;
 }
