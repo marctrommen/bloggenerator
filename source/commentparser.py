@@ -9,12 +9,10 @@ PARAMETER_BLOGTITLE =  "blogtitle"
 PARAMETER_BLOGCREATED = "blogcreated"
 PARAMETER_BLOGCHANGED = "blogchanged"
 PARAMETER_BLOGKEYWORDS = "blogkeywords"
-DEFAULT_DATETIME = "20180101_010000"
+DEFAULT_DATETIME = "20180101-010000"
 DATE_PARSE_FORMAT = "%Y%m%d-%H%M%S"
-
-#FILE_NAME = "test/test_commentparser.html"
-#with open(FILE_NAME, 'r') as fileObject:
-#	fileContent = fileObject.read()
+KEYWORD_LIST_SEPARETOR = ","
+DEFAULT_VALUE_NOKEYWORD = "no_keyword"
 
 
 class CommentParser(HTMLParser):
@@ -47,6 +45,7 @@ class CommentParser(HTMLParser):
 		try:
 			(key, value) = data.split(':')
 		except ValueError:
+			# no key-value-pair found
 			return
 		
 		key = key.strip().lower()
@@ -79,10 +78,16 @@ class CommentParser(HTMLParser):
 	
 	
 	def handle_list_parameter(self, liststring):
-		items = liststring.split(' ')
+		items = liststring.split(KEYWORD_LIST_SEPARETOR)
+		resultlist = []
 		for item in items:
 			item = item.strip().lower()
-		return items
+			item = item.replace(" ", "")
+			if item != "":
+				resultlist.append(item)
+		if len(resultlist) == 0:
+			resultlist.append(DEFAULT_VALUE_NOKEYWORD)
+		return resultlist
 	
 	
 	def get_parameter(self):
