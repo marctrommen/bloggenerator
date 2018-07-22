@@ -6,10 +6,6 @@ import unittest
 import commentparser
 import datetime
 
-#FILE_NAME = "test/test_commentparser.html"
-#with open(FILE_NAME, 'r') as fileObject:
-#	fileContent = fileObject.read()
-
 PARAMETER_BLOGTITLE =  "blogtitle"
 PARAMETER_BLOGCREATED = "blogcreated"
 PARAMETER_BLOGCHANGED = "blogchanged"
