@@ -4,6 +4,7 @@
 import unittest
 
 import blogpostgenerator
+import templatehandler
 import datetime
 
 PARAMETER_BLOGTITLE =  "blogtitle"
@@ -15,47 +16,50 @@ PARAMETER_BLOGKEYWORDS = "blogkeywords"
 class BlogPostGeneratorTest(unittest.TestCase):
 
 	def __init__(self, *args, **kwargs):
-		self.defaultParameters = ( PARAMETER_BLOGTITLE
-			, PARAMETER_BLOGCREATED
-			, PARAMETER_BLOGCHANGED
-			, PARAMETER_BLOGKEYWORDS )
-		self.parameters = {}
 		super(BlogPostGeneratorTest, self).__init__(*args, **kwargs)
-	
-	def init_parameters(self):
-		for key in self.defaultParameters:
-			self.parameters[key] = ""
 	
 	
 	def setUp(self):
-		self.init_parameters()
+		th = templatehandler.TemplateHandler()
+		title = "Blog-Test"
+		dateGenerated = datetime.datetime(2018, 1, 1, 1, 0, 0)
+		self.generator = blogpostgenerator.BlogPostGenerator(th, title, dateGenerated)
 	
 	
 	def test_get_keywordSnippet(self):
-		FILE_NAME = "../templates/blogpost_keyword_template.html"
-		with open(FILE_NAME, 'r') as fileObject:
-			fileContent = fileObject.read()
-		
-		generator = blogpostgenerator.BlogPostGenerator(keywordTemplate = fileContent)
 		keywords = ["fass", "hunde_trainer", "muckefuk"]
-		html = generator.get_keywordSnippet(keywords)
-		
-		FILE_NAME = "test/keyword.html"
-		with open(FILE_NAME, 'w') as fileObject:
-			fileObject.write(html)
+		html = self.generator.get_keywordSnippet(keywords)
+		self.assertEqual(len(html), 237, "incorrect snippet size")
 	
 	
 	def test_get_pageSnippet(self):
-		FILE_NAME = "../templates/page_template.html"
-		with open(FILE_NAME, 'r') as fileObject:
-			fileContent = fileObject.read()
-		
-		generator = blogpostgenerator.BlogPostGenerator(pageTemplate = fileContent)
-		html = generator.get_pageSnippet(pageTitle = 'my Blog', 
-			content = '<p>nix</p>', 
-			generatedDate = datetime.datetime(2018, 1, 1, 1, 0, 0))
-			
-		FILE_NAME = "test/page.html"
-		with open(FILE_NAME, 'w') as fileObject:
-			fileObject.write(html)
+		content = '<p>nix</p>'
+		html = self.generator.get_pageSnippet(content)
+		self.assertEqual(len(html), 1887, "incorrect snippet size")
 	
+	
+	def test_get_blogpostSnippet(self):
+		blogpostParameters = dict(
+			BLOGPOSTID = 'aa',
+			BLOGPOSTTITLE = 'bb',
+			BLOGPOSTCREATED = 'cc',
+			BLOGPOSTCREATED_HUMANREADABLE = 'dd',
+			BLOGPOSTKEYWORDS = 'ee',
+			BLOGPOSTCHANGED = 'ff',
+			BLOGPOSTCHANGED_HUMANREADABLE = 'gg',
+			BLOGPOSTCONTENT = 'hh'
+		)
+		html = self.generator.get_blogpostSnippet(blogpostParameters)
+		self.assertEqual(len(html), 514, "incorrect snippet size")
+	
+	def test_get_html(self):
+		parameters = {}
+		parameters[PARAMETER_BLOGTITLE] = "aa"
+		parameters[PARAMETER_BLOGCREATED] = datetime.datetime(2017, 1, 1, 1, 0, 0)
+		parameters[PARAMETER_BLOGCHANGED] = datetime.datetime(2017, 1, 1, 1, 0, 0)
+		parameters[PARAMETER_BLOGKEYWORDS] = ["bla"]
+		
+		content = '<p>nix</p>'
+		html = self.generator.get_html(parameters, content)
+		self.assertEqual(len(html), 2536, "incorrect snippet size")
+
