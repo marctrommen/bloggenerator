@@ -18,13 +18,13 @@ Python.
 Content
 -------
 
-* [Feature List](#feature-list)
-* [SiteMap of Blog](#sitemap-of-blog)
-* [SiteMap of Build](#sitemap-of-build)
-* [Process of Build](#process-of-build)
-* [Links on CSS](#links-on-css)
-* [Links on Python](#links-on-python)
-* [Link on makesite.py](#link-on-makesite.py)
+*   [Feature List](#feature-list)
+*   [SiteMap of Blog](#sitemap-of-blog)
+*   [SiteMap of Build](#sitemap-of-build)
+*   [Process of Build](#process-of-build)
+*   [Links on CSS](#links-on-css)
+*   [Links on Python](#links-on-python)
+*   [Link on makesite.py](#link-on-makesite.py)
 
 
 Feature List
@@ -52,10 +52,11 @@ blog_root
 ├── about.html (optional)
 ├── impressum.html (optional)
 ├── keyword_catalog.html (Liste aller Schlagworte)
-├── archive.html (Liste aller Monatsarchive)
-├── <YYYYMM>.html (Monatsarchiv)
+├── archive.html (Liste aller Jahresarchive)
+├── <YYYY>.html (Jahresarchiv, optional)
 ├── archive
-│   └── <yyyymmdd_hh>.html (Blog-Artikel)
+│   ├── <yyyymmdd_hhMMSS>.html (Blog-Artikel)
+│   └── <yyyymmdd_hhMMSS_??>.* (verlinkte Inhalte, optional)
 ├── css (Verzeichnis)
 ├── js (Verzeichnis)
 └── lib (Verzeichnis)
@@ -67,19 +68,22 @@ SiteMap of Build
 Grobe SiteMap der Build-Umgebung des Generators sieht wie folgt aus:
 ```
 project_root
-├── generator.py
+├── source
+│   ├── generator.py
+│   └── test
+│       └── test_generator.py
 ├── templates
 ├── content
 │   ├── blog
-│   │   └── <yyyymmdd_hh>.html (Blog-Artikel)
+│   │   ├── <yyyymmdd_hh>.html (Blog-Artikel)
+│   │   └── <yyyymmdd_hhMMSS_??>.* (verlinkte Inhalte, optional)
 │   ├── about.html (optional)
 │   └── impressum.html (optional)
 ├── static
 │   ├── css (Verzeichnis)
 │   ├── js  (Verzeichnis)
 │   └── lib (Verzeichnis)
-├── _site (Ausgabe der fertigen Blog-Site)
-└── _temp (Verzeichnis)
+└── _site (Ausgabe der fertigen Blog-Site)
 ```	
 
 
@@ -88,14 +92,14 @@ Process of Build
 Grober Ablauf des Build-Prozesses:
 
 *   Initialisierung
-*   CleanUp des letzten Builds
+*   CleanUp des letzten Builds (Verzeichnisbaum `_site` löschen)
 *   Parsen und Metadaten generieren
 *   Zielverzeichnisse erstellen
-*   statische Seiten und verlinkte Dateien (Bilder, PDF, usw.) kopieren
+*   verlinkte Dateien (Bilder, PDF, usw.) kopieren
 *   einzelne BlogPosts generieren
 *   index.html generieren
 *   archive.html generieren
-*   <yyyyMM>.html generieren
+*   <yyyy>.html generieren (optional)
 *   keyword_catalog.html generieren
 
 
