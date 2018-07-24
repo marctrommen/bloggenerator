@@ -35,7 +35,7 @@ class BlogPostGeneratorTest(unittest.TestCase):
 	def test_get_pageSnippet(self):
 		content = '<p>nix</p>'
 		html = self.generator.get_pageSnippet(content)
-		self.assertEqual(len(html), 1887, "incorrect snippet size")
+		self.assertEqual(len(html), 1898, "incorrect snippet size")
 	
 	
 	def test_get_blogpostSnippet(self):
@@ -61,5 +61,5 @@ class BlogPostGeneratorTest(unittest.TestCase):
 		
 		content = '<p>nix</p>'
 		html = self.generator.get_html(parameters, content)
-		self.assertEqual(len(html), 2536, "incorrect snippet size")
+		self.assertEqual(len(html), 2547, "incorrect snippet size")
 

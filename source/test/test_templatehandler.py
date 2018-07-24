@@ -12,7 +12,7 @@ class TemplateHandlerTest(unittest.TestCase):
 
 	def test_getPage(self):
 		th = templatehandler.TemplateHandler()
-		self.assertEqual(len(th.getPage()), 1913, "incorrect file size")
+		self.assertEqual(len(th.getPage()), 1924, "incorrect file size")
 
 	def test_getBlogpost(self):
 		th = templatehandler.TemplateHandler()
