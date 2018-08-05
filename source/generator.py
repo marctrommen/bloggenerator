@@ -32,16 +32,19 @@ def init():
 	
 	generatorParameters['blogPostList'] = []
 	generatorParameters['blogPostMetaData'] = {}
+	print("init()")
 
 def cleanup():
 	aPath = generatorParameters['blogRootDir']
 	if os.path.isdir(aPath):
 		shutil.rmtree(aPath)
+	print("cleanup()")
 
 
 def blogBuildDirLayout():
 	shutil.copytree(generatorParameters['projectStaticDir'], generatorParameters['blogRootDir'])
 	os.makedirs(generatorParameters['blogArchiveDir'])
+	print("blogBuildDirLayout()")
 
 
 def isValidFilename(name):
@@ -52,12 +55,20 @@ def isValidFilename(name):
 			datetime.datetime.strptime(datepart, DATE_PARSE_FORMAT)
 			return True
 		except ValueError:
+			print("ERROR - isValidFilename():", name)
 			return False
 	else:
+		print("ERROR - isValidFilename():", name)
 		return False
 
 
 def createBlogpostFileList():
+	"""get file list of "content" directory. if file in list hit against the
+	file naming pattern "<yyyymmdd_hhMMSS>.html" then add it to the blog candidate
+	list for further blog generation processing. All other files which hit against
+	the file naming pattern "<yyyymmdd_hhMMSS_??>.*" just copy them to the blog
+	destination folder as a linked file of the blog post.
+	"""
 	blogpostDir = generatorParameters['projectBlogpostDir']
 	fileList = os.listdir(blogpostDir)
 	for item in fileList:
@@ -68,6 +79,7 @@ def createBlogpostFileList():
 					generatorParameters['blogPostList'].append(item)
 				else:
 					shutil.copy(filepath, generatorParameters['blogArchiveDir'])
+	print("createBlogpostFileList()")
 
 
 def createBlogposts():
@@ -90,6 +102,7 @@ def createBlogposts():
 		outFileName = os.path.join(generatorParameters['blogArchiveDir'], item)
 		with open(outFileName, 'w') as fileObject:
 			fileObject.write(html)
+	print("createBlogposts()")
 
 
 
@@ -99,3 +112,4 @@ if __name__ == '__main__':
 	blogBuildDirLayout()
 	createBlogpostFileList()
 	createBlogposts()
+	print("main() done")
