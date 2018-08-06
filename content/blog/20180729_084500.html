@@ -2,11 +2,14 @@
 <!-- blogcreated: 20180729-084500 -->
 <!-- blogchanged: 20180805-190000 -->
 <!-- blogkeywords: code, python, mock -->
-<h2>What is Mock?</h2>
+
+<h1>What is Mock?</h1>
+
 <blockquote>
 <p>"mock allows you to <strong>replace parts of your system under test</strong> with mock
 objects and <strong>make assertions about how they have been used</strong>."</p>
 </blockquote>
+
 <p>Links:</p>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=7XiArCSZc3g">My Adventures with Mock</a></li>
@@ -14,142 +17,176 @@ objects and <strong>make assertions about how they have been used</strong>."</p>
 <li><a href="https://www.youtube.com/watch?v=VhabrYF1nms">Building Python apps with Docker</a></li>
 <li><a href="https://www.youtube.com/watch?v=iQU18hAjux4">Practical PyBuilder</a></li>
 </ul>
-<h2>Unit Testing</h2>
+
+
+<h1>Unit Testing</h1>
+
 <ul>
 <li>Exercise part of your code (fuction or method)</li>
 <li>Verify the side-efficts</li>
 <li>May verify state change</li>
 </ul>
-<h2>Typical Unit Test</h2>
-<pre><code class="language-python"><span class="hljs-keyword">import</span> unittest
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(x, y)</span>:</span>
-    <span class="hljs-keyword">return</span> x + y
+<h1>Typical Unit Test</h1>
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestAdd</span><span class="hljs-params">(unittest.TestCase)</span>:</span>
+<pre><code class="python">
+import unittest
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_add</span><span class="hljs-params">(self)</span>:</span>
-        result = add (<span class="hljs-number">40</span>, <span class="hljs-number">2</span>)
-        self.assertEqual(result, <span class="hljs-number">42</span>)
+def add(x, y):
+	return x + y
+
+class TestAdd(unittest.TestCase):
+
+	def test_add(self):
+		result = add (40, 2)
+		self.assertEqual(result, 42)
 </code></pre>
-<h2>Unit Test of Code with Further Dependencies</h2>
-<pre><code class="language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add_service</span><span class="hljs-params">(x,y)</span>:</span>
-    resp = requests.post(
-        <span class="hljs-string">"http://math.biz/sum"</span>,
-        {<span class="hljs-string">'operands'</span>: [x, y]}
-    )
-    <span class="hljs-keyword">return</span> resp.json()
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestAdd</span><span class="hljs-params">(unittest.TestCase)</span>:</span>
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_add_service</span><span class="hljs-params">(self)</span>:</span>
-        result = add_service (<span class="hljs-number">40</span>, <span class="hljs-number">2</span>)
-        self.assertEqual(result, <span class="hljs-number">42</span>)
+<h1>Unit Test of Code with Further Dependencies</h1>
+
+<pre><code class="python">
+def add_service(x,y):
+	resp = requests.post(
+		"http://math.biz/sum",
+		{'operands': [x, y]}
+	)
+	return resp.json()
+
+class TestAdd(unittest.TestCase):
+
+	def test_add_service(self):
+		result = add_service (40, 2)
+		self.assertEqual(result, 42)
 </code></pre>
+
 <p>Bad unit test, because of ...</p>
 <ul>
 <li>further dependencies</li>
 <li>service might not be available</li>
 <li>internet connection might not be available</li>
 </ul>
-<h2>Mock Objects</h2>
+
+
+<h1>Mock Objects</h1>
+
 <ul>
 <li>Flexible objects that replace other parts of your code</li>
 <li>callable</li>
 <li>create attributes when accessed (new Mock objects)</li>
 <li>Record how they are used (and you can make assertions about that!)</li>
 </ul>
-<h2>Use Mock Objects</h2>
+
+
+<h1>Use Mock Objects</h1>
+
 <ul>
 <li>replace part of your code with something you can inspect!</li>
 <li>Replaces <strong>requests</strong> with a mock object</li>
 <li>Assert that <code>request.post</code> was called with <strong>correct parameters</strong></li>
 </ul>
-<h2><code>from mock import patch</code></h2>
+
+
+<h1><code>from mock import patch</code></h1>
+
 <ul>
 <li>Temporarlily replaces a named object with a Mock object</li>
 <li>e.g. replaces <code>requests</code> with an instance of Mock</li>
 <li><em>patch</em> where your code <em>looks</em> for an object</li>
 </ul>
-<pre><code class="language-python"><span class="hljs-comment"># main.py</span>
 
-<span class="hljs-keyword">import</span> requests
+<pre><code class="python">
+# main.py
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add_service</span><span class="hljs-params">(x,y)</span>:</span>
-    resp = requests.post(
-        <span class="hljs-string">"http://math.biz/sum"</span>,
-        {<span class="hljs-string">'operands'</span>: [x, y]}
-    )
-    <span class="hljs-keyword">return</span> resp.json()
+import requests
+
+def add_service(x,y):
+	resp = requests.post(
+		"http://math.biz/sum",
+		{'operands': [x, y]}
+	)
+	return resp.json()
 </code></pre>
-<pre><code class="language-python"><span class="hljs-comment"># test.py</span>
 
-<span class="hljs-keyword">import</span> unittest
-<span class="hljs-keyword">from</span> unittest.mock <span class="hljs-keyword">import</span> patch
-<span class="hljs-keyword">from</span> main <span class="hljs-keyword">import</span> add_service
+<pre><code class="python">
+# test.py
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestAdd</span><span class="hljs-params">(unittest.TestCase)</span>:</span>
+import unittest
+from unittest.mock import patch
+from main import add_service
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_add_service</span><span class="hljs-params">(self)</span>:</span>
-        <span class="hljs-keyword">with</span> patch(<span class="hljs-string">"main.requests"</span>) <span class="hljs-keyword">as</span> mock_requests:
-            add_service(<span class="hljs-number">40</span>,<span class="hljs-number">2</span>)  <span class="hljs-comment"># call the function under test</span>
-            
-            mock_requests.post.assert_called_once_with(
-                <span class="hljs-string">"http://math.biz/sum"</span>,
-                {<span class="hljs-string">'operands'</span>: [x, y]}
-            )
+class TestAdd(unittest.TestCase):
+
+	def test_add_service(self):
+		with patch("main.requests") as mock_requests:
+			add_service(40,2)  # call the function under test
+			
+			mock_requests.post.assert_called_once_with(
+				"http://math.biz/sum",
+				{'operands': [x, y]}
+			)
 </code></pre>
-<h2>Other Mocking Opportunities</h2>
+
+
+<h1>Other Mocking Opportunities</h1>
+
 <ul>
 <li>Code that hits external APIs or network ressources</li>
 <li>Exception handler code</li>
 <li>Expensive code (e.g. memory / time / IO expensive)</li>
 <li>code that needs a lot of setup</li>
 </ul>
-<h1>testing Exception Handlers</h1>
-<pre><code class="language-python"><span class="hljs-comment"># main.py</span>
 
-<span class="hljs-keyword">import</span> json
-<span class="hljs-keyword">import</span> logging
-<span class="hljs-keyword">import</span> requests
-<span class="hljs-keyword">from</span> requests <span class="hljs-keyword">import</span> ConnectionError, HTTPError
 
-<span class="hljs-comment"># ...</span>
+<h2>testing Exception Handlers</h2>
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_content</span><span class="hljs-params">(url)</span>:</span>
-    <span class="hljs-keyword">try</span>:
-        response = requests.get(url)
-        result = json.loads(response.json())
-    <span class="hljs-keyword">except</span> (ConnectionError, HTTPError):
-        logging.warn(<span class="hljs-string">"No Result"</span>)
-        result = {}
-    <span class="hljs-keyword">return</span> result
+<pre><code class="python">
+# main.py
+
+import json
+import logging
+import requests
+from requests import ConnectionError, HTTPError
+
+# ...
+
+def get_content(url):
+	try:
+		response = requests.get(url)
+		result = json.loads(response.json())
+	except (ConnectionError, HTTPError):
+		logging.warn("No Result")
+		result = {}
+	return result
 </code></pre>
-<pre><code class="language-python"><span class="hljs-comment"># test.py</span>
 
-<span class="hljs-keyword">from</span> main <span class="hljs-keyword">import</span> add_service, get_content
-<span class="hljs-keyword">from</span> unittest.mock <span class="hljs-keyword">import</span> patch
-<span class="hljs-keyword">import</span> requests
-<span class="hljs-keyword">import</span> unittest
+<pre><code class="python">
+# test.py
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestAdd</span><span class="hljs-params">(unittest.TestCase)</span>:</span>
+from main import add_service, get_content
+from unittest.mock import patch
+import requests
+import unittest
 
-    <span class="hljs-comment"># ...</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_content_exception_handler</span><span class="hljs-params">(self)</span>:</span>
-        <span class="hljs-keyword">with</span> patch(<span class="hljs-string">"main.requests"</span>) <span class="hljs-keyword">as</span> mock_requests:
-        
-            url = <span class="hljs-string">"http://example.com"</span>
-            
-            <span class="hljs-comment"># raise exception as a side effect</span>
-            mock_requests.get.side_effect = requests.HTTPError
-            
-            <span class="hljs-comment"># call the function under test</span>
-            result = get_content(url)
-            
-            mock_requests.get.assert_called_once_with(url)
-            
-            self.assertEqual(result, {})
+class TestAdd(unittest.TestCase):
+
+	# ...
+	def test_content_exception_handler(self):
+		with patch("main.requests") as mock_requests:
+		
+			url = "http://example.com"
+			
+			# raise exception as a side effect
+			mock_requests.get.side_effect = requests.HTTPError
+			
+			# call the function under test
+			result = get_content(url)
+			
+			mock_requests.get.assert_called_once_with(url)
+			
+			self.assertEqual(result, {})
 </code></pre>
+
 <p>Mock's <code>side_effect</code></p>
 <ul>
 <li>controls the <em>side effects</em> of calling a method</li>
@@ -157,46 +194,56 @@ objects and <strong>make assertions about how they have been used</strong>."</p>
 <li>can also produce dynamic results for function/method calls
 checkout documentation for further excamples</li>
 </ul>
-<h1>combine testing and mocking with coverage</h1>
+
+
+<h2>combine testing and mocking with coverage</h2>
+
 <p>run coverage-test:</p>
-<pre><code>$&gt; coverage run test.py &amp;&amp; coverage report
+<pre><code>$> coverage run test.py && coverage report
 </code></pre>
-<h1>testing expensive code</h1>
+
+
+<h2>testing expensive code</h2>
+
 <p><em>Expensive Code</em> could be with a lot of memory, time consumption or with a lot
 of IO traffic (e.g. file-handling, database connections) or web ressources
 without 100% availability guaranteed</p>
-<pre><code class="language-python"><span class="hljs-comment"># main.py</span>
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SciWhizBang</span><span class="hljs-params">(object)</span>:</span>
+<pre><code class="python">
+# main.py
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_calc</span><span class="hljs-params">(self, value)</span>:</span>
-        <span class="hljs-keyword">import</span> time
-        time.sleep(<span class="hljs-number">1000</span>) <span class="hljs-comment"># Expensive!</span>
-        <span class="hljs-keyword">return</span> value + <span class="hljs-number">1</span>
-    
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">calc_alpha</span><span class="hljs-params">(self)</span>:</span>
-        <span class="hljs-keyword">return</span> self._calc(<span class="hljs-number">100</span>)
-    
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">calc_beta</span><span class="hljs-params">(self)</span>:</span>
-        <span class="hljs-keyword">return</span> self._calc(<span class="hljs-number">999</span>)
+class SciWhizBang(object):
 
+	def _calc(self, value):
+		import time
+		time.sleep(1000) # Expensive!
+		return value + 1
+	
+	def calc_alpha(self):
+		return self._calc(100)
+	
+	def calc_beta(self):
+		return self._calc(999)
 </code></pre>
+
 <p>Question:<br>
 How to test <code>calc_alpha()</code> without running expensive <code>time.sleep()</code>?</p>
-<pre><code class="language-python"><span class="hljs-comment">#tests.py</span>
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestSciWhizBang</span><span class="hljs-params">(unittest.TestCase)</span>:</span>
+<pre><code class="python">
+#tests.py
 
-    <span class="hljs-decorator">@patch.object(SciWhizBang, "_calc", return_value=42)</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_calc_alpha</span><span class="hljs-params">(self, mock_calc)</span>:</span>
-    
-        obj = SciWhizBang()
-        
-        self.assertEqual(obj.calc_alpha(), <span class="hljs-number">42</span>)
-        
-        mock_calc.user_called_once_witz(<span class="hljs-number">100</span>)
+class TestSciWhizBang(unittest.TestCase):
 
+	@patch.object(SciWhizBang, "_calc", return_value=42)
+	def test_calc_alpha(self, mock_calc):
+	
+		obj = SciWhizBang()
+		
+		self.assertEqual(obj.calc_alpha(), 42)
+		
+		mock_calc.user_called_once_witz(100)
 </code></pre>
+
 <p>Using mock's <code>patch.object</code> as a <em>decorator</em> for replacing a method of a class.
 In it definition,</p>
 <ul>
@@ -206,80 +253,110 @@ In it definition,</p>
 <li>the patched definition is getting passed into <code>test_cald_alpha()</code> as
 parameter <code>mock_calc</code></li>
 </ul>
+
 <p>With <code>mock_calc.assert_called_once_with(100)</code> we can test the call parameters
 of the patched method.</p>
+
 <p>All the test tests now the logic of method <code>calc_alpha()</code> whithout testing
 <code>_calc()</code> as an integration test and without the time consuming part of it.</p>
-<h1>testing code that needs a lot of setup</h1>
+
+
+<h2>testing code that needs a lot of setup</h2>
+
 <p>If your code uses other objects (aggregation of behaviour) you can mock the
 behaviour of the used objects without setting them up.</p>
+
 <p>Therefore you can customize mock objects in various ways, like:</p>
 <ul>
 <li>set attribute values</li>
 <li>set method return values</li>
 <li>create chains of method calls</li>
 </ul>
-<h2>usage of config dictionary</h2>
-<pre><code class="language-python">config = {
-    <span class="hljs-string">'first_name'</span>: <span class="hljs-string">'Alan'</span>,
-    <span class="hljs-string">'last_name'</span>: <span class="hljs-string">'Turing'</span>,
-    <span class="hljs-string">'email'</span>: <span class="hljs-string">'turing@example.com'</span>
-    <span class="hljs-string">'get_achievement.return_value'</span>: <span class="hljs-string">'Computing'</span>,
-    <span class="hljs-string">'get_age.side_effect'</span>: ValueError
+
+
+<h3>usage of config dictionary</h3>
+
+<pre><code class="python">
+config = {
+	'first_name': 'Alan',
+	'last_name': 'Turing',
+	'email': 'turing@example.com'
+	'get_achievement.return_value': 'Computing',
+	'get_age.side_effect': ValueError
 }
 m = Mock(**config)
 </code></pre>
+
 <p>running it in Python console:</p>
-<pre><code>&gt;&gt;&gt; m.first_name
+<pre><code>
+>>> m.first_name
 'Alan'
 
-&gt;&gt;&gt; m.get_achievement()
+>>> m.get_achievement()
 'Computing'
 
-&gt;&gt;&gt; m.get_age()
+>>> m.get_age()
 ValueError
 </code></pre>
-<h2>usage of spec'd objects</h2>
+
+
+<h3>usage of spec'd objects</h3>
+
 <ul>
 <li>creates a <em>white list</em> of available attribute and method names</li>
 <li>Anything else raises an <code>AttributeError</code></li>
 </ul>
-<pre><code class="language-python">user_spec = [
-    <span class="hljs-string">'first_name'</span>, <span class="hljs-string">'last_name'</span>,
-    <span class="hljs-string">'email'</span>, <span class="hljs-string">'get_full_name'</span>
+
+<pre><code class="python">
+user_spec = [
+	'first_name', 'last_name',
+	'email', 'get_full_name'
 ]
 m = Mock(spec = user_spec)
 </code></pre>
-<p>running it in Python console:</p>
-<pre><code>&gt;&gt;&gt; m.get_full_name()
-&lt;Mock name='mock.get_full_name()' id='4311640208'&gt;
 
-&gt;&gt;&gt; m.password
+<p>running it in Python console:</p>
+<pre><code>
+>>> m.get_full_name()
+<Mock name='mock.get_full_name()' id='4311640208'>
+
+>>> m.password
 AttributeError
 </code></pre>
-<h2>usage of Autospec</h2>
+
+
+<h3>usage of Autospec</h3>
+
 <ul>
 <li>automatically creates a spec from an existing object</li>
 <li>anything else raises an <code>AttributeError</code></li>
 </ul>
-<pre><code class="language-python"><span class="hljs-keyword">from</span> mock <span class="hljs-keyword">import</span> create_autospec
-<span class="hljs-prompt">&gt;&gt;&gt; </span>u = User.objects.get(pk=<span class="hljs-number">1</span>)
-<span class="hljs-prompt">&gt;&gt;&gt; </span>m = create_autospec(u)
 
-<span class="hljs-prompt">&gt;&gt;&gt; </span>m.get_full_name()
-&lt;MagicMock name=<span class="hljs-string">'mock.get_full_name()'</span> id=<span class="hljs-string">'4504021136'</span>&gt;
+<pre><code class="python">
+from mock import create_autospec
+>>> u = User.objects.get(pk=1)
+>>> m = create_autospec(u)
 
-<span class="hljs-prompt">&gt;&gt;&gt; </span>m.something_else()
+>>> m.get_full_name()
+<MagicMock name='mock.get_full_name()' id='4504021136'>
+
+>>> m.something_else()
 AttributeError
 </code></pre>
-<h1>summary for Mock</h1>
+
+
+<h1>Summary on Mock</h1>
+
 <ul>
 <li>create Mock objects instead of loading fixtures</li>
 <li>narrowly define your Mock object's behavior / ExpectAssertions if they are
 used incorrectly</li>
 <li>rely on Spec/Autospec'd objects as test objects</li>
 </ul>
+
+
 <h1>Tips on Mock</h1>
+
 <ul>
 <li>The <a href="http://www.voidspace.org.us/python/mock/">Documentation</a> is awesome
 <ul>
@@ -288,6 +365,7 @@ used incorrectly</li>
 </ul>
 </li>
 <li>better search on Google with the search string<br>
-<code>"from mock import" site:github.com</code><br>
+<code>"from mock import" site:github.com</code>
+<a href="https://www.google.de/search?q=%22from+mock+import%22+site%3Agithub.com">Search</a><br>
 it will show you, how others are using <code>mock</code> in their <em>real life projects</em></li>
 </ul>
