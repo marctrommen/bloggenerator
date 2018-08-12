@@ -39,8 +39,8 @@ Feature List
 *   Anzeige von Bildern
 *   Anzeige von [Mathematischen Formeln](https://www.mathjax.org)
 *   Generierung entspricht einem Build-Prozess, inkl. Initialisierung, CleanUp, usw.
-*   Anfangs ist alles in Plain-HTML
-*   später/optional ist eine Unterstützung von Markdown oder restructured Text denkbar
+*   Anfangs ist alles in Plain-HTML oder Markdown
+*   später/optional ist eine Unterstützung von restructured Text denkbar
 
 
 SiteMap of Blog
@@ -76,6 +76,7 @@ project_root
 ├── content
 │   ├── blog
 │   │   ├── <yyyymmdd_hh>.html (Blog-Artikel)
+│   │   ├── <yyyymmdd_hh>.md   (Blog-Artikel, optional)
 │   │   └── <yyyymmdd_hhMMSS_??>.* (verlinkte Inhalte, optional)
 │   ├── about.html (optional)
 │   └── impressum.html (optional)
@@ -93,9 +94,10 @@ Grober Ablauf des Build-Prozesses:
 
 *   Initialisierung
 *   CleanUp des letzten Builds (Verzeichnisbaum `_site` löschen)
-*   Parsen und Metadaten generieren
 *   Zielverzeichnisse erstellen
 *   verlinkte Dateien (Bilder, PDF, usw.) kopieren
+*   Blogposts von Markdown nach HTML5 konvertieren (optional)
+*   Parsen der HTML5 Blogposts und Metadaten generieren
 *   einzelne BlogPosts generieren
 *   index.html generieren
 *   archive.html generieren

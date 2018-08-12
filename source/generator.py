@@ -5,6 +5,7 @@ import os
 import shutil
 import datetime
 import locale
+import markdown
 
 import templatehandler
 import commentparser
@@ -53,6 +54,7 @@ def isValidFilename(name):
 		datepart = filename[:15]
 		try:
 			datetime.datetime.strptime(datepart, DATE_PARSE_FORMAT)
+			print("isValidFilename():")
 			return True
 		except ValueError:
 			print("ERROR - isValidFilename():", name)
@@ -61,6 +63,30 @@ def isValidFilename(name):
 		print("ERROR - isValidFilename():", name)
 		return False
 
+
+def markdown_to_html(filepath, filename):
+	md_content = None
+	html_content = None
+
+	inFile = os.path.join(filepath, filename)
+	with open(inFile, 'r') as fileObject:
+		md_content = fileObject.read()
+	
+	html_content = markdown.markdown(md_content, 
+		extensions=['markdown.extensions.extra'],
+		output_format = "html5", 
+		tab_length = 4,
+		smart_emphasis = True
+	)
+	
+	newFileName = filename.replace(".md", ".html")
+	outFile = os.path.join(filepath, newFileName)
+	with open(outFile, 'w') as fileObject:
+		fileObject.write(html_content)
+	
+	print("markdown_to_html()")
+	return newFileName
+	
 
 def createBlogpostFileList():
 	"""get file list of "content" directory. if file in list hit against the
@@ -75,6 +101,11 @@ def createBlogpostFileList():
 		filepath = os.path.join(blogpostDir, item)
 		if os.path.isfile(filepath):
 			if isValidFilename(item):
+				if item.endswith(".md"):
+					htmlItem = markdown_to_html(blogpostDir, item)
+					generatorParameters['blogPostList'].append(htmlItem)
+					htmlFilepath = os.path.join(blogpostDir, htmlItem)
+					shutil.copy(htmlFilepath, generatorParameters['blogArchiveDir'])
 				if item.endswith(".html"):
 					generatorParameters['blogPostList'].append(item)
 				else:
