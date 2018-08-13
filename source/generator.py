@@ -113,7 +113,7 @@ def createBlogpostFileList():
 					generatorParameters['blogPostList'].append(filename)
 					filepath = os.path.join(blogpostDir, filename)
 					shutil.copy(filepath, generatorParameters['blogArchiveDir'])
-				else if filename.endswith(".html"):
+				elif filename.endswith(".html"):
 					generatorParameters['blogPostList'].append(filename)
 				else:
 					shutil.copy(filepath, generatorParameters['blogArchiveDir'])

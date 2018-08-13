@@ -3,8 +3,9 @@
 
 /* -- section title -- */
 article section.title h1 {
-	font: 500 1.7rem/1.2 "Roboto"; 
+	font: 600 1.7rem/1.2 "Roboto"; 
 	color: #333;
+	padding: 0 0;
 }
 
 
@@ -23,7 +24,7 @@ article section.created time {
 
 /* -- section keywords -- */
 article section.keywords {
-	font: 400 1.1rem/1.5 "Roboto";
+	font: 400 1.1rem/1.4 "Roboto";
 	color: #333;
 	font-style: italic;
 	padding: 1rem 0;
@@ -48,17 +49,33 @@ article section.lastchange time {
 
 /* -- section content -- */
 article section.content h1 {
-	font: 400 1.2rem/1.2 "Roboto";
+	font: 500 1.5rem/1.2 "Roboto";
 	color: #333;
+	padding: 0 0;
 }
 
 article section.content h2 {
-	font: 700 1.0rem/1.2 "Roboto";
+	font: 500 1.5rem/1.2 "Roboto";
+	font-style: italic;
 	color: #333;
+	padding: 0 0;
+}
+
+article section.content h3 {
+	font: 500 1.0rem/1.2 "Roboto";
+	color: #333;
+	padding: 1rem 0;
+}
+
+article section.content h4 {
+	font: 500 1.0rem/1.2 "Roboto";
+	font-style: italic;
+	color: #333;
+	padding: 1rem 0;
 }
 
 article section.content pre {
-	font: 400 1.0rem/1.1 "Roboto";
+	font: 300 0.9rem/1.2 "Roboto";
 }
 
 article section.content p { 
@@ -67,8 +84,12 @@ article section.content p {
 	padding: 1rem 0 0;
 }
 
+article section.content blockquote p {
+	background-color: #dde;
+}
+
 article section.content * a {
-	font: 500 1.1rem/1.5 "Roboto";
+	font: 400 1.1rem/1.5 "Roboto";
 	color: #11d;
 	text-decoration: none;
 }
