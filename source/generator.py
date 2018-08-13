@@ -54,7 +54,6 @@ def isValidFilename(name):
 		datepart = filename[:15]
 		try:
 			datetime.datetime.strptime(datepart, DATE_PARSE_FORMAT)
-			print("isValidFilename():")
 			return True
 		except ValueError:
 			print("ERROR - isValidFilename():", name)
@@ -68,8 +67,8 @@ def markdown_to_html(filepath, filename):
 	md_content = None
 	html_content = None
 
-	inFile = os.path.join(filepath, filename)
-	with open(inFile, 'r') as fileObject:
+	md_file = os.path.join(filepath, filename)
+	with open(md_file, 'r') as fileObject:
 		md_content = fileObject.read()
 	
 	html_content = markdown.markdown(md_content, 
@@ -79,35 +78,43 @@ def markdown_to_html(filepath, filename):
 		smart_emphasis = True
 	)
 	
-	newFileName = filename.replace(".md", ".html")
-	outFile = os.path.join(filepath, newFileName)
-	with open(outFile, 'w') as fileObject:
+	html_filename = filename.replace(".md", ".html")
+	html_file = os.path.join(filepath, html_filename)
+	with open(html_file, 'w') as fileObject:
 		fileObject.write(html_content)
 	
 	print("markdown_to_html()")
-	return newFileName
+	return html_filename
 	
 
 def createBlogpostFileList():
-	"""get file list of "content" directory. if file in list hit against the
-	file naming pattern "<yyyymmdd_hhMMSS>.html" then add it to the blog candidate
-	list for further blog generation processing. All other files which hit against
-	the file naming pattern "<yyyymmdd_hhMMSS_??>.*" just copy them to the blog
-	destination folder as a linked file of the blog post.
+	"""get file list of "content" directory and check if file in list hits
+	against the file naming pattern and starts with "yyyymmdd_hhMMSS".
+	If this test is successfuly passed handle the file as follows:
+	
+	*   if file content is of type Markdown, then translate it into HTML5, 
+	    add it to the blog candidate list for further blog generation processing
+		copy the Markdown file to the blog destination folder
+		
+	*   if file content is of type HTML5, then add it to the blog candidate
+	    list for further blog generation processing.
+		
+	*   any other files just copy them to the blog destination folder as a 
+	    linked file of the blog post
 	"""
 	blogpostDir = generatorParameters['projectBlogpostDir']
-	fileList = os.listdir(blogpostDir)
-	for item in fileList:
-		filepath = os.path.join(blogpostDir, item)
+	files = os.listdir(blogpostDir)
+	for filename in files:
+		filepath = os.path.join(blogpostDir, filename)
 		if os.path.isfile(filepath):
-			if isValidFilename(item):
-				if item.endswith(".md"):
-					htmlItem = markdown_to_html(blogpostDir, item)
-					generatorParameters['blogPostList'].append(htmlItem)
-					htmlFilepath = os.path.join(blogpostDir, htmlItem)
-					shutil.copy(htmlFilepath, generatorParameters['blogArchiveDir'])
-				if item.endswith(".html"):
-					generatorParameters['blogPostList'].append(item)
+			if isValidFilename(filename):
+				if filename.endswith(".md"):
+					filename = markdown_to_html(blogpostDir, filename)
+					generatorParameters['blogPostList'].append(filename)
+					filepath = os.path.join(blogpostDir, filename)
+					shutil.copy(filepath, generatorParameters['blogArchiveDir'])
+				else if filename.endswith(".html"):
+					generatorParameters['blogPostList'].append(filename)
 				else:
 					shutil.copy(filepath, generatorParameters['blogArchiveDir'])
 	print("createBlogpostFileList()")
