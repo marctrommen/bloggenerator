@@ -1,10 +1,12 @@
 /* mobile first */
-:root { font: 18px/1.2 "Roboto", sans-serif; } /* or html */
+:root { 
+	font: 18px/1.2 "Roboto", sans-serif;
+}
 
 body {
 	display: grid;
 	grid-template-columns: 1fr 2% 96% 2% 1fr;
-	grid-template-rows: 2rem auto auto auto;
+	grid-template-rows: 2rem auto auto 4rem;
 	grid-template-areas:
 	". . nav . ."
 	". . header . ."
@@ -26,6 +28,13 @@ body {
 		". . main . ."
 		". . footer . .";
 	}
+}
+
+* {
+	-webkit-margin-before: 0.83em !important;
+	-webkit-margin-after: unset !important;
+	-webkit-margin-start: unset !important;
+	-webkit-margin-end: unset !important;
 }
 
 p {
@@ -74,23 +83,24 @@ header {
 	margin: unset;
 }
 
-header h1 {
-	font: 700 2.0rem/1.2 "Roboto";
-	color: #333;
-	padding: 0 0;
+header div.title {
+	font-size: 2.0rem;
+	font-style: italic;
+	font-weight: bold;
+	color: #a9a9a9;
+	padding: 2rem 0 0 0;
 }
 
 main {
 	grid-area: main;
-	padding: 0 0;
+	padding: 0 1rem 0 0;
 	margin: unset;
 }
 
 footer {
 	grid-area: footer;
-	font: 200 0.9rem/1.0 "Roboto";
-	padding: 2rem 0 0;
-	height: 40px;
+	font-size: 0.9rem;
+	padding: 2rem 0 0 0;
 }
 
 footer p {
@@ -98,6 +108,6 @@ footer p {
 }
 
 footer p a {
-	color: #11d;
+	color: #4682b4;
 	text-decoration: none;
 }

@@ -29,7 +29,7 @@ def init():
 	
 	locale.setlocale(locale.LC_ALL, '')
 	generatorParameters['generatorStarted'] = datetime.datetime.now()
-	generatorParameters['blogTitle'] = ""
+	generatorParameters['blogTitle'] = "techBlog"
 	
 	generatorParameters['blogPostList'] = []
 	generatorParameters['blogPostMetaData'] = {}
