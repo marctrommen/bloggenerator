@@ -23,12 +23,12 @@ class CommentParser(HTMLParser):
 			, PARAMETER_BLOGCREATED
 			, PARAMETER_BLOGCHANGED
 			, PARAMETER_BLOGKEYWORDS )
-		self.parameters = {}
-		self.init_parameters()
+		self.parameters = None
 		super(CommentParser, self).__init__()
 	
 	
 	def init_parameters(self):
+		self.parameters = {}
 		for key in self.defaultParameters:
 			self.parameters[key] = ""
 	

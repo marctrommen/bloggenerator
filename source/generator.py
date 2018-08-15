@@ -6,6 +6,7 @@ import shutil
 import datetime
 import locale
 import markdown
+import pprint
 
 import templatehandler
 import commentparser
@@ -134,6 +135,7 @@ def createBlogposts():
 			content = fileObject.read()
 		parser.feed(content)
 		generatorParameters['blogPostMetaData'][item] = parser.get_parameter()
+		#print(generatorParameters['blogPostMetaData'][item])
 		html = blogGenerator.get_html(
 			generatorParameters['blogPostMetaData'][item], 
 			content)
@@ -150,4 +152,7 @@ if __name__ == '__main__':
 	blogBuildDirLayout()
 	createBlogpostFileList()
 	createBlogposts()
-	print("main() done")
+	print("main() done")	
+	
+	pp = pprint.PrettyPrinter(indent=4)
+	print(pp.pprint(generatorParameters))

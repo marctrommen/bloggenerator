@@ -6,7 +6,7 @@ article section.title div.title {
 	font-size: 1.7rem;
 	font-weight: bold;
 	color: #333;
-	padding: 0 0;
+	padding: 1.5rem 0 0.5rem 0;
 }
 
 
@@ -60,7 +60,7 @@ article section.content h1:before {
 
 article section.content h1 {
 	font-size: 1.5em;
-	padding: 1rem 0 0 0;
+	padding: 1.5rem 0 0.5rem 0;
 	color: #333;
 	counter-reset: level_2;
 }
@@ -71,7 +71,7 @@ article section.content h2:before {
 }
 
 * article section.content h2 {
-	padding: 1rem 0 0 0;
+	padding: 1.5rem 0 0.5rem 0;
 	color: #333;
 	counter-reset: level_3;
 }
@@ -82,6 +82,7 @@ article section.content h3:before {
 }
 
 article section.content h3 {
+	padding: 1.5rem 0 0.5rem 0;
 	color: #333;
 	counter-reset: level_4;
 }
@@ -92,6 +93,7 @@ article section.content h4:before {
 }
 
 article section.content h4 {
+	padding: 1.5rem 0 0.5rem 0;
 	color: #333;
 }
 
@@ -101,16 +103,22 @@ article section.content :not(pre) code {
 
 article section.content pre  {
 	font: 300 0.9rem/1.2 "Roboto";
+	padding: 0.5rem 0 0.5rem 0;
 }
 
 article section.content p { 
+	/*
 	font: 400 1.1rem/1.5 "Roboto";
+	*/
+	font-size: 1.1rem;
+	line-height: 150%;
 	color: #333;
-	padding: 0 0 1rem 0;
+	padding: 0.5rem 0 0.5rem 0;
 }
 
 article section.content blockquote p {
 	background-color: beige;
+	padding: 0.5rem 0 0.5rem 0;
 }
 
 article section.content * a {
@@ -119,12 +127,20 @@ article section.content * a {
 }
 
 article section.content * ul {
+	/*
 	font: 400 1.1rem/1.5 "Roboto";
+	*/
+	font-size: 1.1rem;
+	line-height: 150%;
 	color: #333;
 }
 
 article section.content * li {
+	/*
 	font: 400 1.1rem/1.5 "Roboto";
+	*/
+	font-size: 1.1rem;
+	line-height: 150%;
 	color: #333;
 }
 
