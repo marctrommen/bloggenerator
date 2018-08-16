@@ -34,6 +34,8 @@ def init():
 	
 	generatorParameters['blogPostList'] = []
 	generatorParameters['blogPostMetaData'] = {}
+	generatorParameters['keywordMetaData'] = {}
+	generatorParameters['archiveMetaData'] = {}
 	print("init()")
 
 def cleanup():
@@ -64,11 +66,11 @@ def isValidFilename(name):
 		return False
 
 
-def markdown_to_html(filepath, filename):
+def markdown_to_html(filename):
 	md_content = None
 	html_content = None
 
-	md_file = os.path.join(filepath, filename)
+	md_file = os.path.join(generatorParameters['projectBlogpostDir'], filename)
 	with open(md_file, 'r') as fileObject:
 		md_content = fileObject.read()
 	
@@ -80,7 +82,7 @@ def markdown_to_html(filepath, filename):
 	)
 	
 	html_filename = filename.replace(".md", ".html")
-	html_file = os.path.join(filepath, html_filename)
+	html_file = os.path.join(generatorParameters['blogArchiveDir'], html_filename)
 	with open(html_file, 'w') as fileObject:
 		fileObject.write(html_content)
 	
@@ -110,14 +112,18 @@ def createBlogpostFileList():
 		if os.path.isfile(filepath):
 			if isValidFilename(filename):
 				if filename.endswith(".md"):
-					filename = markdown_to_html(blogpostDir, filename)
+					filename = markdown_to_html(filename)
 					generatorParameters['blogPostList'].append(filename)
-					filepath = os.path.join(blogpostDir, filename)
-					shutil.copy(filepath, generatorParameters['blogArchiveDir'])
 				elif filename.endswith(".html"):
 					generatorParameters['blogPostList'].append(filename)
-				else:
-					shutil.copy(filepath, generatorParameters['blogArchiveDir'])
+				
+				# copy any mathing file
+				shutil.copy(filepath, generatorParameters['blogArchiveDir'])
+	
+	if len(generatorParameters['blogPostList']) > 0:
+		generatorParameters['blogPostList'].sort()
+		generatorParameters['blogPostList'].reverse()
+	
 	print("createBlogpostFileList()")
 
 
@@ -130,7 +136,7 @@ def createBlogposts():
 	parser = commentparser.CommentParser()
 	
 	for item in generatorParameters['blogPostList']:
-		inFileName = os.path.join(generatorParameters['projectBlogpostDir'], item)
+		inFileName = os.path.join(generatorParameters['blogArchiveDir'], item)
 		with open(inFileName, 'r') as fileObject:
 			content = fileObject.read()
 		parser.feed(content)
@@ -145,6 +151,37 @@ def createBlogposts():
 	print("createBlogposts()")
 
 
+def create_keyword_structure():
+	"""Iterate over the meta information of all blogarticles and gather a list 
+	of distinct keywords. Then find for each keyword all blogarticles which
+	refer to these keywords. Store it then as dictionary into local datastrcture
+	below 'keywordMetaData'."""
+	# iterate over all blogposts
+	for blogpost in generatorParameters['blogPostList']:
+		blogpost_keywords = generatorParameters['blogPostMetaData'][blogpost]['blogkeywords']
+		# iterate over blogpost's keywords
+		for keyword in blogpost_keywords:
+			if keyword not in generatorParameters['keywordMetaData'].keys():
+				generatorParameters['keywordMetaData'][keyword] = []
+			
+			generatorParameters['keywordMetaData'][keyword].append(blogpost)
+	print("create_keyword_structure()")
+
+
+def create_archive_structure():
+	"""Iterate over the meta information of all blogarticles and gather a list 
+	of years the articles were created. Then find for each year all blogarticles 
+	which match with their creation date to this. Store it then as dictionary
+	into local datastrcture below 'archiveMetaData'."""
+	# iterate over all blogposts
+	for blogpost in generatorParameters['blogPostList']:
+		blogcreated = generatorParameters['blogPostMetaData'][blogpost]['blogcreated']
+		archive_year = blogcreated.year
+		if archive_year not in generatorParameters['archiveMetaData'].keys():
+			generatorParameters['archiveMetaData'][archive_year] = []
+		generatorParameters['archiveMetaData'][archive_year].append(blogpost)
+	print("create_archive_structure()")
+
 
 if __name__ == '__main__':
 	init()
@@ -152,7 +189,8 @@ if __name__ == '__main__':
 	blogBuildDirLayout()
 	createBlogpostFileList()
 	createBlogposts()
+	create_keyword_structure()
+	create_archive_structure()
 	print("main() done")	
 	
-	pp = pprint.PrettyPrinter(indent=4)
-	print(pp.pprint(generatorParameters))
+	print(pprint.pformat(generatorParameters))

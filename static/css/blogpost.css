@@ -12,10 +12,10 @@ article section.title div.title {
 
 /* -- section created -- */
 article section.created {
-	font: 400 1.0rem/1.2 "Roboto";
-	color: #333;
+	font-size: 1rem;
 	font-style: italic;
-	padding: 1rem 0 0;
+	color: #333;
+	padding: 0 0 1.5rem 0;
 }
 
 article section.created time {
@@ -27,7 +27,7 @@ article section.created time {
 article section.keywords {
 	font-size: 1.1rem;
 	font-style: italic;
-	padding: 1rem 0;
+	padding: 1.5rem 0 0.5rem 0;
 }
 
 article section.keywords a {
@@ -41,6 +41,7 @@ article section.lastchange {
 	font: 400 0.8rem/1.0 "Roboto";
 	color: #333;
 	font-style: italic;
+	padding: 0.5rem 0 2rem 0;
 }
 
 article section.lastchange time {
@@ -59,7 +60,7 @@ article section.content h1:before {
 }
 
 article section.content h1 {
-	font-size: 1.5em;
+	font-size: 1.5rem;
 	padding: 1.5rem 0 0.5rem 0;
 	color: #333;
 	counter-reset: level_2;
@@ -71,6 +72,7 @@ article section.content h2:before {
 }
 
 * article section.content h2 {
+	font-size: 1.3rem;
 	padding: 1.5rem 0 0.5rem 0;
 	color: #333;
 	counter-reset: level_3;
@@ -82,6 +84,7 @@ article section.content h3:before {
 }
 
 article section.content h3 {
+	font-size: 1.2rem;
 	padding: 1.5rem 0 0.5rem 0;
 	color: #333;
 	counter-reset: level_4;
@@ -93,6 +96,7 @@ article section.content h4:before {
 }
 
 article section.content h4 {
+	font-size: 1.1rem;
 	padding: 1.5rem 0 0.5rem 0;
 	color: #333;
 }
@@ -107,13 +111,14 @@ article section.content pre  {
 }
 
 article section.content p { 
-	/*
-	font: 400 1.1rem/1.5 "Roboto";
-	*/
 	font-size: 1.1rem;
 	line-height: 150%;
 	color: #333;
 	padding: 0.5rem 0 0.5rem 0;
+}
+
+article section.content blockquote {
+	padding: 0.8rem 0 0.8rem 0;
 }
 
 article section.content blockquote p {
@@ -127,21 +132,16 @@ article section.content * a {
 }
 
 article section.content * ul {
-	/*
-	font: 400 1.1rem/1.5 "Roboto";
-	*/
 	font-size: 1.1rem;
 	line-height: 150%;
 	color: #333;
 }
 
 article section.content * li {
-	/*
-	font: 400 1.1rem/1.5 "Roboto";
-	*/
 	font-size: 1.1rem;
 	line-height: 150%;
 	color: #333;
+	padding: 0 0 0.5rem 0;
 }
 
 article section.content * em {

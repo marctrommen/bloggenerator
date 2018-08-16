@@ -18,6 +18,7 @@ class BlogPostGenerator(object):
 		self.templateHandler = templateHandler
 		self.pageParameters = dict (
 			BLOGTITLE = pageTitle,
+			PAGESTYLE = "blogpost",
 			CONTENT = "",
 			BLOGCURRENTYEAR = pageGenerated.strftime('%Y'),
 			BLOGGENERATED = pageGenerated.strftime('%Y%m%d %H%M%S'),
