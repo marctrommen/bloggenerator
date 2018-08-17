@@ -1,0 +1,44 @@
+/*  LISTPAGE.CSS  */
+
+/* -- section title -- */
+article section.title div.title {
+	font-size: 1.7rem;
+	font-weight: bold;
+	color: #333;
+	padding: 1.5rem 0 0.5rem 0;
+}
+
+
+/* -- section content -- */
+article section.content {
+	color: #333;
+	padding: 0 0 1.5rem 0;
+}
+
+article section.content div.pageItem {
+}
+
+article section.content div.pageItem h1 {
+	font-size: 1.5rem;
+	padding: 1.5rem 0 0.5rem 0;
+}
+
+
+article section.content div.pageItem p.datetime {
+}
+
+article section.content div.pageItem p.datetime time {
+	color: green;
+}
+
+
+article section.content div.pageItem p.keywords { 
+	font-size: 1.1rem;
+	line-height: 150%;
+	padding: 0.5rem 0 0.5rem 0;
+}
+
+article section.content div.pageItem p.keywords a {
+	color: #4682b4;
+	text-decoration: none;
+}

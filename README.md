@@ -52,8 +52,9 @@ blog_root
 ├── about.html (optional)
 ├── impressum.html (optional)
 ├── keyword_catalog.html (Liste aller Schlagworte)
+├── keyword_<xxx>.html (Liste aller Blog-Artikel zu einem Schlagwort <xxx>)
 ├── archive.html (Liste aller Jahresarchive)
-├── <YYYY>.html (Jahresarchiv, optional)
+├── archive_<YYYY>.html (Jahresarchiv)
 ├── archive
 │   ├── <yyyymmdd_hhMMSS>.html (Blog-Artikel)
 │   └── <yyyymmdd_hhMMSS_??>.* (verlinkte Inhalte, optional)
