@@ -186,14 +186,15 @@ def create_archive_structure():
 
 
 if __name__ == '__main__':
+	init()
+	
 	sync_object = cloudsync.CloudSync()
-	hasBlogChanges = sync_object(
+	hasBlogChanges = sync_object.sync(
 		"blogposts", 
 		generatorParameters['projectContentDir']
 	)
 	
 	if hasBlogChanges:
-		init()
 		cleanup()
 		blogBuildDirLayout()
 		createBlogpostFileList()

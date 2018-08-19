@@ -32,30 +32,33 @@ class CloudSync(object):
 		return error_code == 0
 
 
-	def sync(self, rel_cloud_dir, abs_local_dir):
+	def sync(self, rel_cloud_dir, abs_local_dir, from_cloud_to_local = True):
 		"""synchronise """
 		has_changes = False
 		
 		if self.__mount_cloud():
 			cloud_dir = os.path.join(self.__cloud_mountpoint, rel_cloud_dir)
 			
-			result = filecmp.dircmp(cloud_dir, abs_local_dir)
+			if from_cloud_to_local:
+				from_dir = cloud_dir
+				to_dir = abs_local_dir
+			else:
+				from_dir = abs_local_dir
+				to_dir = cloud_dir
 			
-			# copy all new files from cloud_dir to local_dir
+			result = filecmp.dircmp(from_dir, to_dir)
+			
+			# copy all new files from from_dir to to_dir
 			for new_file in result.left_only:
 				has_changes = True
-				shutil.copy(
-					os.path.join(cloud_dir, new_file),
-					abs_local_dir
-				)
+				from_file = os.path.join(from_dir, new_file)
+				shutil.copy(from_file, to_dir)
 			
 			# copy all changed files from cloud_dir to local_dir
 			for changed_file in result.diff_files:
 				has_changes = True
-				shutil.copy(
-					os.path.join(cloud_dir, changed_file),
-					abs_local_dir
-				)
+				frome_file = os.path.join(from_dir, changed_file)
+				shutil.copy(from_file, to_dir)
 			
 			has_changed = self.__unmount_cloud() and has_changes
 		else:
