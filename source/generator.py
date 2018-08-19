@@ -191,7 +191,7 @@ if __name__ == '__main__':
 	sync_object = cloudsync.CloudSync()
 	hasBlogChanges = sync_object.sync(
 		"blogposts", 
-		generatorParameters['projectContentDir']
+		generatorParameters['projectBlogpostDir']
 	)
 	
 	if hasBlogChanges:

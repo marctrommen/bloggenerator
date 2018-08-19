@@ -7,7 +7,7 @@
       <x>10</x>
       <y>40</y>
       <w>460</w>
-      <h>120</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>&lt;&lt;template&gt;&gt;
 Page
@@ -15,7 +15,8 @@ Page
 BLOGTITLE: String
 BLOGCURRENTYEAR: "YYYY"
 BLOGGENERATED:"YYYYMMDD_hhmmss"
-BLOGGENERATED_HUMANREADABLE: "YYYYMMDD hh:mm:ss"</panel_attributes>
+BLOGGENERATED_HUMANREADABLE: "YYYYMMDD hh:mm:ss"
+PAGESTYLE: String for CSS-File</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
