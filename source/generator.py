@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 
@@ -8,6 +9,7 @@ import locale
 import markdown
 import pprint
 
+import cloudsync
 import templatehandler
 import commentparser
 import blogpostgenerator
@@ -184,13 +186,21 @@ def create_archive_structure():
 
 
 if __name__ == '__main__':
-	init()
-	cleanup()
-	blogBuildDirLayout()
-	createBlogpostFileList()
-	createBlogposts()
-	create_keyword_structure()
-	create_archive_structure()
+	sync_object = cloudsync.CloudSync()
+	hasBlogChanges = sync_object(
+		"blogposts", 
+		generatorParameters['projectContentDir']
+	)
+	
+	if hasBlogChanges:
+		init()
+		cleanup()
+		blogBuildDirLayout()
+		createBlogpostFileList()
+		createBlogposts()
+		create_keyword_structure()
+		create_archive_structure()
+	
 	print("main() done")	
 	
 	print(pprint.pformat(generatorParameters))
