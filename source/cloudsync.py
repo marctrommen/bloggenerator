@@ -57,7 +57,7 @@ class CloudSync(object):
 			# copy all changed files from cloud_dir to local_dir
 			for changed_file in result.diff_files:
 				has_changes = True
-				frome_file = os.path.join(from_dir, changed_file)
+				from_file = os.path.join(from_dir, changed_file)
 				shutil.copy(from_file, to_dir)
 			
 			has_changed = self.__unmount_cloud() and has_changes

@@ -7,7 +7,7 @@
       <x>20</x>
       <y>30</y>
       <w>460</w>
-      <h>130</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>&lt;&lt;template&gt;&gt;
 Page
@@ -16,7 +16,8 @@ BLOGTITLE: String
 BLOGCURRENTYEAR: "YYYY"
 BLOGGENERATED:"YYYYMMDD_hhmmss"
 BLOGGENERATED_HUMANREADABLE: "YYYYMMDD hh:mm:ss"
-PAGESTYLE: String for CSS-File</panel_attributes>
+PAGESTYLE: String for CSS-File
+PATHLOCATION: String</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -85,9 +86,9 @@ KEYWORD: String</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>40</x>
-      <y>180</y>
+      <y>190</y>
       <w>370</w>
-      <h>100</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>bg=yellow
 Template group works for following pages:
@@ -101,9 +102,9 @@ Template group works for following pages:
       <x>400</x>
       <y>150</y>
       <w>260</w>
-      <h>90</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;70.0;240.0;10.0</additional_attributes>
+    <additional_attributes>10.0;80.0;240.0;10.0</additional_attributes>
   </element>
 </diagram>

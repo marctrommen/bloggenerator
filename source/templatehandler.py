@@ -26,6 +26,18 @@ class TemplateHandler(object):
 		with open(fileName, 'r') as fileObject:
 			self.page = fileObject.read()
 		
+		fileName = os.path.join(self.templatePath, "listpage_template.html")
+		with open(fileName, 'r') as fileObject:
+			self.listpage = fileObject.read()
+		
+		fileName = os.path.join(self.templatePath, "pageitem_template.html")
+		with open(fileName, 'r') as fileObject:
+			self.pageitem = fileObject.read()
+		
+		fileName = os.path.join(self.templatePath, "simpleitem_template.html")
+		with open(fileName, 'r') as fileObject:
+			self.simpleitem = fileObject.read()
+		
 	def getPage(self):
 		return self.page
 	
@@ -35,3 +47,12 @@ class TemplateHandler(object):
 	def getBlogpostKeyword(self):
 		return self.blogpostKeyword
 
+	def getListpage(self):
+		return self.listpage
+	
+	def getPageitem(self):
+		return self.pageitem
+	
+	def getSimpleitem(self):
+		return self.simpleitem
+	

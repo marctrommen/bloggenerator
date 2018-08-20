@@ -19,6 +19,7 @@ class BlogPostGenerator(object):
 		self.pageParameters = dict (
 			BLOGTITLE = pageTitle,
 			PAGESTYLE = "blogpost",
+			PATHLOCATION = "..", 
 			CONTENT = "",
 			BLOGCURRENTYEAR = pageGenerated.strftime('%Y'),
 			BLOGGENERATED = pageGenerated.strftime('%Y%m%d %H%M%S'),
@@ -60,5 +61,5 @@ class BlogPostGenerator(object):
 		htmlSnippets = []
 		for key in keywords:
 			keywordSnippet = self.templateHandler.getBlogpostKeyword()
-			htmlSnippets.append(keywordSnippet.format(KEYWORD=key))
+			htmlSnippets.append(keywordSnippet.format(KEYWORD=key, PATHLOCATION = ".."))
 		return SNIPPET_SEPERATOR.join(htmlSnippets)

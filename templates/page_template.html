@@ -5,24 +5,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{BLOGTITLE}</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,7001,900,900i">
-	<link rel="stylesheet" href="../css/page.css">
-	<link rel="stylesheet" href="../css/{PAGESTYLE}.css">
+	<link rel="stylesheet" href="{PATHLOCATION}/css/page.css">
+	<link rel="stylesheet" href="{PATHLOCATION}/css/{PAGESTYLE}.css">
 	
 	<!-- MathJax -->
-	<script type="text/javascript" src='../lib/mathjaxjs/MathJax.js?config=TeX-AMS_HTML-full'></script>
+	<script type="text/javascript" src='{PATHLOCATION}/lib/mathjaxjs/MathJax.js?config=TeX-AMS_HTML-full'></script>
 	<script type="text/x-mathjax-config">MathJax.Hub.Config('TeX-AMS_HTML-full');</script>
 	
 	<!-- Highlight -->
-	<link rel="stylesheet" href="../lib/highlightjs/default.css">
-	<script src="../lib/highlightjs/highlight.min.js"></script>
+	<link rel="stylesheet" href="{PATHLOCATION}/lib/highlightjs/default.css">
+	<script src="{PATHLOCATION}/lib/highlightjs/highlight.min.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
 	<!-- Navigation -->
 	<nav>
-		<a class="col-1 nav-button" href="#">Start</a>
-		<a class="col-2 nav-button" href="#">Blog Archiv</a>
-		<a class="col-3 nav-button" href="#">Keywords</a>
+		<a class="col-1 nav-button" href="{PATHLOCATION}/index.html">Start</a>
+		<a class="col-2 nav-button" href="{PATHLOCATION}/archive.html">Blog Archiv</a>
+		<a class="col-3 nav-button" href="{PATHLOCATION}/keyword_catalog.html">Keywords</a>
 		<a class="col-4 nav-button" href="#">About</a>
 		<a class="col-5 nav-button" href="#">Impressum</a>
 	</nav>

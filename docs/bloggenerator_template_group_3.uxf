@@ -4,10 +4,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>20</x>
+      <x>0</x>
       <y>30</y>
       <w>460</w>
-      <h>130</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>&lt;&lt;template&gt;&gt;
 Page
@@ -16,14 +16,15 @@ BLOGTITLE: String
 BLOGCURRENTYEAR: "YYYY"
 BLOGGENERATED:"YYYYMMDD_hhmmss"
 BLOGGENERATED_HUMANREADABLE: "YYYYMMDD hh:mm:ss"
-PAGESTYLE: String for CSS-File</panel_attributes>
+PAGESTYLE: String for CSS-File
+PATHLOCATION: String</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>640</x>
-      <y>20</y>
+      <x>1260</x>
+      <y>30</y>
       <w>200</w>
       <h>130</h>
     </coordinates>
@@ -37,24 +38,10 @@ NUMBERITEMS: Integer</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>470</x>
-      <y>70</y>
-      <w>190</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
-m1=1
-m2=1...*
-CONTENT</panel_attributes>
-    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>170</x>
-      <y>180</y>
+      <x>340</x>
+      <y>200</y>
       <w>370</w>
       <h>100</h>
     </coordinates>
@@ -68,12 +55,55 @@ Template group works for following pages:
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>530</x>
-      <y>140</y>
-      <w>210</w>
-      <h>100</h>
+      <x>700</x>
+      <y>100</y>
+      <w>180</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;80.0;190.0;10.0</additional_attributes>
+    <additional_attributes>10.0;140.0;160.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>70</y>
+      <w>170</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+CONTENT</panel_attributes>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>30</y>
+      <w>460</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;template&gt;&gt;
+Listpage
+--
+PAGETITLE: String
+PAGETITLE_ID: String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>70</y>
+      <w>230</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1..*
+PAGECONTENT</panel_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
   </element>
 </diagram>

@@ -4,26 +4,23 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>10</x>
-      <y>40</y>
+      <x>600</x>
+      <y>60</y>
       <w>460</w>
-      <h>130</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>&lt;&lt;template&gt;&gt;
-Page
+Listpage
 --
-BLOGTITLE: String
-BLOGCURRENTYEAR: "YYYY"
-BLOGGENERATED:"YYYYMMDD_hhmmss"
-BLOGGENERATED_HUMANREADABLE: "YYYYMMDD hh:mm:ss"
-PAGESTYLE: String for CSS-File</panel_attributes>
+PAGETITLE: String
+PAGETITLE_ID: String</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>620</x>
-      <y>40</y>
+      <x>500</x>
+      <y>250</y>
       <w>490</w>
       <h>160</h>
     </coordinates>
@@ -42,36 +39,36 @@ BLOGPOSTFILENAME: String</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
-      <y>100</y>
-      <w>180</w>
-      <h>50</h>
+      <x>720</x>
+      <y>130</y>
+      <w>130</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
 m2=1..*
-CONTENT</panel_attributes>
-    <additional_attributes>10.0;20.0;160.0;20.0</additional_attributes>
+PAGECONTENT</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1100</x>
-      <y>90</y>
-      <w>310</w>
+      <x>980</x>
+      <y>300</y>
+      <w>260</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
 m2=1...*
 BLOGPOSTKEYWORDS</panel_attributes>
-    <additional_attributes>10.0;20.0;290.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;240.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1390</x>
-      <y>60</y>
+      <x>1220</x>
+      <y>270</y>
       <w>170</w>
       <h>80</h>
     </coordinates>
@@ -84,8 +81,8 @@ KEYWORD: String</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>80</x>
-      <y>190</y>
+      <x>0</x>
+      <y>310</y>
       <w>400</w>
       <h>100</h>
     </coordinates>
@@ -100,12 +97,45 @@ Template group works for following pages:
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>470</x>
-      <y>160</y>
-      <w>170</w>
-      <h>90</h>
+      <x>390</x>
+      <y>270</y>
+      <w>130</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;70.0;150.0;10.0</additional_attributes>
+    <additional_attributes>10.0;80.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>60</y>
+      <w>460</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;template&gt;&gt;
+Page
+--
+BLOGTITLE: String
+BLOGCURRENTYEAR: "YYYY"
+BLOGGENERATED:"YYYYMMDD_hhmmss"
+BLOGGENERATED_HUMANREADABLE: "YYYYMMDD hh:mm:ss"
+PAGESTYLE: String for CSS-File
+PATHLOCATION: String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>100</y>
+      <w>170</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+CONTENT</panel_attributes>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
   </element>
 </diagram>

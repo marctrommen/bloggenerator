@@ -13,6 +13,7 @@ import cloudsync
 import templatehandler
 import commentparser
 import blogpostgenerator
+import listpagegenerator
 
 DATE_PARSE_FORMAT = "%Y%m%d_%H%M%S"
 
@@ -33,6 +34,8 @@ def init():
 	locale.setlocale(locale.LC_ALL, '')
 	generatorParameters['generatorStarted'] = datetime.datetime.now()
 	generatorParameters['blogTitle'] = "techBlog"
+	
+	generatorParameters['templateHandler'] = templatehandler.TemplateHandler()
 	
 	generatorParameters['blogPostList'] = []
 	generatorParameters['blogPostMetaData'] = {}
@@ -130,9 +133,8 @@ def createBlogpostFileList():
 
 
 def createBlogposts():
-	th = templatehandler.TemplateHandler()
 	blogGenerator = blogpostgenerator.BlogPostGenerator(
-		th, 
+		generatorParameters['templateHandler'], 
 		generatorParameters['blogTitle'], 
 		generatorParameters['generatorStarted'])
 	parser = commentparser.CommentParser()
@@ -185,6 +187,25 @@ def create_archive_structure():
 	print("create_archive_structure()")
 
 
+def create_startpage():
+	current_year = generatorParameters['generatorStarted'].year
+	
+	list_page_generator = listpagegenerator.ListpageGenerator(
+		generatorParameters['templateHandler'], 
+		generatorParameters['blogTitle'], 
+		str(current_year), 
+		generatorParameters['generatorStarted'])
+	
+	html = list_page_generator.get_html(
+		generatorParameters['archiveMetaData'][current_year], 
+		generatorParameters['blogPostMetaData'])
+	outFileName = os.path.join(generatorParameters['blogRootDir'], 'index.html')
+	with open(outFileName, 'w') as fileObject:
+		fileObject.write(html)
+	
+	print("create_startpage()")
+
+
 if __name__ == '__main__':
 	init()
 	
@@ -201,6 +222,7 @@ if __name__ == '__main__':
 		createBlogposts()
 		create_keyword_structure()
 		create_archive_structure()
+		create_startpage()
 	
 	print("main() done")	
 	
