@@ -75,10 +75,9 @@ project_root
 │       └── test_generator.py
 ├── templates
 ├── content
-│   ├── blog
-│   │   ├── <yyyymmdd_hh>.html (Blog-Artikel)
-│   │   ├── <yyyymmdd_hh>.md   (Blog-Artikel, optional)
-│   │   └── <yyyymmdd_hhMMSS_??>.* (verlinkte Inhalte, optional)
+│   ├── <yyyymmdd_hh>.html (Blog-Artikel)
+│   ├── <yyyymmdd_hh>.md   (Blog-Artikel, optional)
+│   ├── <yyyymmdd_hhMMSS_??>.* (verlinkte Inhalte, optional)
 │   ├── about.html (optional)
 │   └── impressum.html (optional)
 ├── static

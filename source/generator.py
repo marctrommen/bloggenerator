@@ -14,6 +14,8 @@ import templatehandler
 import commentparser
 import blogpostgenerator
 import listpagegenerator
+import simplelistpagegenerator
+import simplepagegenerator
 
 DATE_PARSE_FORMAT = "%Y%m%d_%H%M%S"
 
@@ -27,7 +29,6 @@ def init():
 	generatorParameters['projectRootDir'] = aPath
 	generatorParameters['projectStaticDir'] = os.path.join(generatorParameters['projectRootDir'], "static")
 	generatorParameters['projectContentDir'] = os.path.join(generatorParameters['projectRootDir'], "content")
-	generatorParameters['projectBlogpostDir'] = os.path.join(generatorParameters['projectContentDir'], "blog")
 	generatorParameters['blogRootDir'] = os.path.join(generatorParameters['projectRootDir'], "_site")
 	generatorParameters['blogArchiveDir'] = os.path.join(generatorParameters['blogRootDir'], "archive")
 	
@@ -53,6 +54,12 @@ def cleanup():
 def blogBuildDirLayout():
 	shutil.copytree(generatorParameters['projectStaticDir'], generatorParameters['blogRootDir'])
 	os.makedirs(generatorParameters['blogArchiveDir'])
+	
+	# copy .htaccess file if any exists
+	filepath = os.path.join(generatorParameters['projectRootDir'], '.htaccess')
+	if os.path.exists(filepath):
+		shutil.copy(filepath, generatorParameters['blogRootDir'])
+	
 	print("blogBuildDirLayout()")
 
 
@@ -71,11 +78,11 @@ def isValidFilename(name):
 		return False
 
 
-def markdown_to_html(filename):
+def markdown_to_html(filename, destination):
 	md_content = None
 	html_content = None
 
-	md_file = os.path.join(generatorParameters['projectBlogpostDir'], filename)
+	md_file = os.path.join(generatorParameters['projectContentDir'], filename)
 	with open(md_file, 'r') as fileObject:
 		md_content = fileObject.read()
 	
@@ -87,7 +94,7 @@ def markdown_to_html(filename):
 	)
 	
 	html_filename = filename.replace(".md", ".html")
-	html_file = os.path.join(generatorParameters['blogArchiveDir'], html_filename)
+	html_file = os.path.join(destination, html_filename)
 	with open(html_file, 'w') as fileObject:
 		fileObject.write(html_content)
 	
@@ -98,7 +105,7 @@ def markdown_to_html(filename):
 def createBlogpostFileList():
 	"""get file list of "content" directory and check if file in list hits
 	against the file naming pattern and starts with "yyyymmdd_hhMMSS".
-	If this test is successfuly passed handle the file as follows:
+	If this test passes successfuly handle the file as follows:
 	
 	*   if file content is of type Markdown, then translate it into HTML5, 
 	    add it to the blog candidate list for further blog generation processing
@@ -110,19 +117,19 @@ def createBlogpostFileList():
 	*   any other files just copy them to the blog destination folder as a 
 	    linked file of the blog post
 	"""
-	blogpostDir = generatorParameters['projectBlogpostDir']
+	blogpostDir = generatorParameters['projectContentDir']
 	files = os.listdir(blogpostDir)
 	for filename in files:
 		filepath = os.path.join(blogpostDir, filename)
 		if os.path.isfile(filepath):
 			if isValidFilename(filename):
 				if filename.endswith(".md"):
-					filename = markdown_to_html(filename)
+					filename = markdown_to_html(filename, generatorParameters['blogArchiveDir'])
 					generatorParameters['blogPostList'].append(filename)
 				elif filename.endswith(".html"):
 					generatorParameters['blogPostList'].append(filename)
 				
-				# copy any mathing file
+				# copy any matching file
 				shutil.copy(filepath, generatorParameters['blogArchiveDir'])
 	
 	if len(generatorParameters['blogPostList']) > 0:
@@ -187,32 +194,162 @@ def create_archive_structure():
 	print("create_archive_structure()")
 
 
-def create_startpage():
+def create_blog_list_pages():
+	years = generatorParameters['archiveMetaData'].keys()
 	current_year = generatorParameters['generatorStarted'].year
 	
-	list_page_generator = listpagegenerator.ListpageGenerator(
+	for year in years:
+		if year == current_year:
+			filename = 'index.html'
+		else:
+			filename = 'archive_' + str(year) + '.html'
+
+		list_page_generator = listpagegenerator.ListpageGenerator(
+			generatorParameters['templateHandler'], 
+			generatorParameters['blogTitle'], 
+			str(year), 
+			generatorParameters['generatorStarted']
+		)
+	
+		html = list_page_generator.get_html(
+			generatorParameters['archiveMetaData'][year], 
+			generatorParameters['blogPostMetaData']
+		)
+		outFileName = os.path.join(generatorParameters['blogRootDir'], filename)
+		with open(outFileName, 'w') as fileObject:
+			fileObject.write(html)
+	
+	print('create_blog_list_pages()')
+
+
+def create_keyword_list_pages():
+	keywords = generatorParameters['keywordMetaData'].keys()
+	
+	for keyword in keywords:
+		filename = 'keyword_' + keyword + '.html'
+		
+		list_page_generator = listpagegenerator.ListpageGenerator(
+			generatorParameters['templateHandler'], 
+			generatorParameters['blogTitle'], 
+			'Tag: ' + keyword.replace("_", " ").upper(), 
+			generatorParameters['generatorStarted']
+		)
+
+		html = list_page_generator.get_html(
+			generatorParameters['keywordMetaData'][keyword], 
+			generatorParameters['blogPostMetaData']
+		)
+			
+		outFileName = os.path.join(generatorParameters['blogRootDir'], filename)
+		with open(outFileName, 'w') as fileObject:
+			fileObject.write(html)
+
+	print('create_keyword_list_pages()')
+
+
+def create_archive_page():
+	years = generatorParameters['archiveMetaData'].keys()
+	
+	simple_list_page_generator = simplelistpagegenerator.SimpleListpageGenerator(
 		generatorParameters['templateHandler'], 
 		generatorParameters['blogTitle'], 
-		str(current_year), 
-		generatorParameters['generatorStarted'])
-	
-	html = list_page_generator.get_html(
-		generatorParameters['archiveMetaData'][current_year], 
-		generatorParameters['blogPostMetaData'])
-	outFileName = os.path.join(generatorParameters['blogRootDir'], 'index.html')
+		'Jahresarchive', 
+		generatorParameters['generatorStarted']
+	)
+
+	html = simple_list_page_generator.get_html(
+		generatorParameters['archiveMetaData'],
+		False
+	)
+		
+	outFileName = os.path.join(generatorParameters['blogRootDir'], 'archive.html')
 	with open(outFileName, 'w') as fileObject:
 		fileObject.write(html)
 	
-	print("create_startpage()")
+	print('create_archive_page()')
 
 
-if __name__ == '__main__':
+def create_keyword_catalog_page():
+	keywords = list(generatorParameters['keywordMetaData'].keys())
+	keywords.sort()
+	
+	simple_list_page_generator = simplelistpagegenerator.SimpleListpageGenerator(
+		generatorParameters['templateHandler'], 
+		generatorParameters['blogTitle'], 
+		'Verfügbare Keywords', 
+		generatorParameters['generatorStarted']
+	)
+
+	html = simple_list_page_generator.get_html(
+		generatorParameters['keywordMetaData'],
+		True
+	)
+		
+	outFileName = os.path.join(generatorParameters['blogRootDir'], 'keyword_catalog.html')
+	with open(outFileName, 'w') as fileObject:
+		fileObject.write(html)
+
+	print('create_keyword_catalog_page()')
+
+
+def create_special_page(pagename):
+	if pagename == 'about':
+		filename = pagename + '.md'
+		pagetitle = 'About / Über'
+	elif pagename == 'impressum':
+		filename = pagename + '.md'
+		pagetitle = 'Impressum'
+	else:
+		return
+	
+	# transform Markdown to HTML5
+	md_filepath = os.path.join(generatorParameters['projectContentDir'], filename)
+	# copy Markdown file
+	shutil.copy(md_filepath, generatorParameters['blogRootDir'])
+
+	html_filename = markdown_to_html(filename, generatorParameters['blogRootDir'])
+	
+	html_filepath = os.path.join(generatorParameters['blogRootDir'], html_filename)
+	with open(html_filepath, 'r') as fileObject:
+		html_snippet = fileObject.read()
+	
+	simple_page_generator = simplepagegenerator.SimplePageGenerator(
+		generatorParameters['templateHandler'], 
+		generatorParameters['blogTitle'], 
+		generatorParameters['generatorStarted']
+	)
+
+	html = simple_page_generator.get_html(pagetitle, html_snippet)
+
+	with open(html_filepath, 'w') as fileObject:
+		fileObject.write(html)
+	
+	print('create_special_page()')
+
+
+def sync_to_web_hoster():
+	import subprocess
+	
+	command = ['doStratoSshSync.sh', 
+		'--in', generatorParameters['blogRootDir'],
+		'--out', 'www/techblog']
+	error_code = -1
+	
+	with subprocess.Popen(command) as process:
+		error_code = process.wait()	
+	
+	if not (error_code == 0):
+		print('An error occured while file sync to web space via ssh tunnel!')
+	print('sync_to_web_hoster()')
+
+
+def website_build():
 	init()
 	
 	sync_object = cloudsync.CloudSync()
 	hasBlogChanges = sync_object.sync(
-		"blogposts", 
-		generatorParameters['projectBlogpostDir']
+		"techBlog", 
+		generatorParameters['projectContentDir']
 	)
 	
 	if hasBlogChanges:
@@ -222,8 +359,36 @@ if __name__ == '__main__':
 		createBlogposts()
 		create_keyword_structure()
 		create_archive_structure()
-		create_startpage()
+		create_blog_list_pages()
+		create_keyword_list_pages()
+		create_archive_page()
+		create_keyword_catalog_page()
+		create_special_page("about")
+		create_special_page("impressum")
+		sync_to_web_hoster()
+
+	print('website_build()')
+
+def test_website_build():
+	init()
+	cleanup()
+	blogBuildDirLayout()
+	createBlogpostFileList()
+	createBlogposts()
+	create_keyword_structure()
+	create_archive_structure()
+	create_blog_list_pages()
+	create_keyword_list_pages()
+	create_archive_page()
+	create_keyword_catalog_page()
+	create_special_page("about")
+	create_special_page("impressum")
+
+
+if __name__ == '__main__':
+	website_build()
+	#test_website_build()
 	
-	print("main() done")	
+	print("main() done")
 	
 	print(pprint.pformat(generatorParameters))

@@ -35,6 +35,8 @@ body {
 	-webkit-margin-after: unset !important;
 	-webkit-margin-start: unset !important;
 	-webkit-margin-end: unset !important;
+	margin-bottom: unset !important;
+	margin-top: unset !important;
 }
 
 p {
