@@ -330,16 +330,18 @@ def create_special_page(pagename):
 def sync_to_web_hoster():
 	import subprocess
 	
-	command = ['doStratoSshSync.sh', 
-		'--in', generatorParameters['blogRootDir'],
-		'--out', 'www/techblog']
-	error_code = -1
+	command = ['/home/marco/bin/doStratoSshSync.sh', 
+		'--from', generatorParameters['blogRootDir'],
+		'--to', 'www/techblog']
 	
 	with subprocess.Popen(command) as process:
 		error_code = process.wait()	
+
 	
 	if not (error_code == 0):
+		print("ERROR CODE:", error_code)
 		print('An error occured while file sync to web space via ssh tunnel!')
+	
 	print('sync_to_web_hoster()')
 
 
@@ -383,7 +385,6 @@ def test_website_build():
 	create_keyword_catalog_page()
 	create_special_page("about")
 	create_special_page("impressum")
-
 
 if __name__ == '__main__':
 	website_build()
